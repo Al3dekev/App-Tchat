@@ -25,16 +25,8 @@ export class LoginComponent implements OnInit {
     const target = event.target;
     const username = target.querySelector('#username').value;
     const password = target.querySelector('#password').value;
-
-    this.Auth.LoginTest(username, password).subscribe(data => {
-      if (data.success) {
-        this.router.navigate(['admin']);
-        this.Auth.setLoggedIn(true);
-      } else {
-        window.alert(data.message);
-      }
-    });
     console.log(username, password);
+    this.Auth.LoginTest(username, password);
   }
 
 
