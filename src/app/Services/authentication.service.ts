@@ -43,9 +43,12 @@ export class AuthenticationService {
       })
     };
 
-    this.http.get<any>(AccountLink)
-      .subscribe( res => {
+    this.http.get<any>(AccountLink).subscribe( res => {
       console.log(res);
-    }, error => console.error('There was an error!', error));
+    }, err => {
+      console.log(err.message);
+    }, () => {
+      console.log('completed');
+    });
   }
 }
