@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import {AuthenticationService} from '../../Services/authentication.service';
 import {Account} from '../../Models/account';
@@ -13,8 +13,11 @@ export class LoginComponent implements OnInit {
 
   private apiURL = 'http://localhost:1789/';
 
-  constructor(private Auth: AuthenticationService, private router: Router) {
+  @Input() name: string;
+  private type: string;
 
+  constructor(private Auth: AuthenticationService, private router: Router) {
+    this.type = this.name;
   }
 
   ngOnInit() {
