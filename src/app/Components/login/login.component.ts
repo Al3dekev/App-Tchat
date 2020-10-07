@@ -14,23 +14,18 @@ export class LoginComponent implements OnInit {
   private apiURL = 'http://localhost:1789/';
 
   @Input() name: string;
-  private type: string;
+  public type: string;
+  public titreForm: string;
 
-  constructor(private Auth: AuthenticationService, private router: Router) {
+  constructor(public Auth: AuthenticationService, public router: Router) {
     this.type = this.name;
+    this.titreForm = 'Connexion';
   }
 
   ngOnInit() {
   }
 
-  loginUser(event) {
-    event.preventDefault();
-    const target = event.target;
-    const username = target.querySelector('#username').value;
-    const password = target.querySelector('#password').value;
-    console.log(username, password);
-    this.Auth.LoginTest(username, password);
-  }
+
 
 
 

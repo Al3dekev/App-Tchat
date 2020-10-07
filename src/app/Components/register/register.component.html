@@ -1,10 +1,10 @@
-<form (submit)="loginUser($event)">
+<form (submit)="this.Auth.loginUser($event)">
   <div class="container">
     <div>
-      <input type="text" autocomplete="off" placeholder="Username" id="username">
+      <input type="text" autocomplete="off" placeholder="Pseudonyme" id="username">
     </div>
     <div>
-      <input type="password" autocomplete="off" placeholder="Password" id="password">
+      <input type="password" autocomplete="off" placeholder="Mot de passe" id="password">
     </div>
     <div>
       <button mat-button type="Submit">Inscription</button>

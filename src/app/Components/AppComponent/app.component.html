@@ -1,11 +1,17 @@
+<div class="AppTchatSystem">
+  <div class="AllUpperBlocks">
+    <app-logo></app-logo>
+    <app-infos></app-infos>
+  </div>
 
-<div>
-  <app-logo></app-logo>
-  <app-infos></app-infos>
+  <div class="selectorButton">
+    <button mat-button (click)="this.SwitchType()">{{ this.type }}</button>
+  </div>
+
+
+  <div class="AllLowerBlocks">
+    <!--<app-login></app-login>-->
+    <router-outlet></router-outlet>
+  </div>
+
 </div>
-
-
-<app-login></app-login>
-
-
-<router-outlet></router-outlet>

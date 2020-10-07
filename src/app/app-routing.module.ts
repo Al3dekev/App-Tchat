@@ -5,8 +5,6 @@ import {RegisterComponent} from './Components/register/register.component';
 import {DiscussComponent} from './Components/discuss/discuss.component';
 
 const routes: Routes = [
-  { path: '',
-    component: LoginComponent },
   { path: 'login',
     component: LoginComponent },
   { path: 'register',
@@ -16,7 +14,7 @@ const routes: Routes = [
 
   // otherwise redirect to home
   { path: '**',
-    redirectTo: '' }
+    redirectTo: 'login' }
 ];
 
 @NgModule({

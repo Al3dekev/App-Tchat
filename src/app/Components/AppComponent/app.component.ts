@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'App-Tchat';
+  type = 'Inscription';
+
+  SwitchType(){
+    if (this.type === 'Inscription') {
+      this.type = 'Connexion';
+    } else {
+      this.type = 'Inscription';
+    }
+  }
+
+
 }

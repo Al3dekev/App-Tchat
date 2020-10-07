@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-
+import { Router } from '@angular/router';
 import { Account } from '../Models/account';
 
 import {Md5} from 'ts-md5';
@@ -22,7 +22,7 @@ export class AuthenticationService {
   private apiURL = 'http://localhost:1789/';
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
 
   }
 
@@ -34,9 +34,21 @@ export class AuthenticationService {
     return this.loggedInStatus;
   }
 
+
+
+  loginUser(event) {
+    event.preventDefault();
+    const target = event.target;
+    const username = target.querySelector('#username').value;
+    const password = target.querySelector('#password').value;
+    console.log(username, password);
+    this.LoginTest(username, password);
+  }
+
   LoginTest(pseudo: string, password: string){
+    let EstTrouve: boolean = false;
     const md5 = new Md5();
-    const AccountLink = this.apiURL + 'accounts/' + pseudo + '&' + md5.appendStr(password).end()
+    const AccountLink = this.apiURL + 'accounts/' + pseudo + '&' + md5.appendStr(password).end();
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -44,11 +56,17 @@ export class AuthenticationService {
     };
 
     this.http.get<any>(AccountLink).subscribe( res => {
-      console.log(res);
+      EstTrouve = true;
+      console.log(EstTrouve);
+      this.router.navigateByUrl('/discuss');
     }, err => {
       console.log(err.message);
     }, () => {
       console.log('completed');
     });
+    if (EstTrouve === false) {
+      alert('Pseudo ou Mot de passe incorrect');
+    }
+
   }
 }
