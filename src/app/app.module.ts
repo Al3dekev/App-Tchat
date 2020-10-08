@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './Components/AppComponent/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './Components/login/login.component';
 import { LogoComponent } from './Components/logo/logo.component';
@@ -12,6 +12,8 @@ import { InfosComponent } from './Components/infos/infos.component';
 import {MatButtonModule} from '@angular/material/button';
 import { RegisterComponent } from './Components/register/register.component';
 import { DiscussComponent } from './Components/discuss/discuss.component';
+import {MatInputModule} from '@angular/material/input';
+import { TchatSystemsComponent } from './Components/tchat-systems/tchat-systems.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { DiscussComponent } from './Components/discuss/discuss.component';
     LogoComponent,
     InfosComponent,
     RegisterComponent,
-    DiscussComponent
+    DiscussComponent,
+    TchatSystemsComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,9 @@ import { DiscussComponent } from './Components/discuss/discuss.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

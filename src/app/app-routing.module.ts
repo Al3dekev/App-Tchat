@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from './Components/login/login.component';
 import {RegisterComponent} from './Components/register/register.component';
 import {DiscussComponent} from './Components/discuss/discuss.component';
+import {AuthenticationService} from './Services/authentication.service';
 
 const routes: Routes = [
   { path: 'login',
@@ -10,7 +11,8 @@ const routes: Routes = [
   { path: 'register',
     component: RegisterComponent },
   { path: 'discuss',
-    component: DiscussComponent },
+    component: DiscussComponent,
+    canActivate: [AuthenticationService] },
 
   // otherwise redirect to home
   { path: '**',
