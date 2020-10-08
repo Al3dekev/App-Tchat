@@ -14,6 +14,8 @@ import { RegisterComponent } from './Components/register/register.component';
 import { DiscussComponent } from './Components/discuss/discuss.component';
 import {MatInputModule} from '@angular/material/input';
 import { TchatSystemsComponent } from './Components/tchat-systems/tchat-systems.component';
+import { BubbleComponent } from './Components/bubble/bubble.component';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { TchatSystemsComponent } from './Components/tchat-systems/tchat-systems.
     InfosComponent,
     RegisterComponent,
     DiscussComponent,
-    TchatSystemsComponent
+    TchatSystemsComponent,
+    BubbleComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { TchatSystemsComponent } from './Components/tchat-systems/tchat-systems.
     FormsModule,
     MatButtonModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
