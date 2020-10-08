@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-discuss',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscussComponent implements OnInit {
 
-  constructor() { }
+  /*MessageForm = new FormControl('', [
+
+  ]);*/
+
+  constructor() {
+
+  }
+
 
   ngOnInit(): void {
   }
