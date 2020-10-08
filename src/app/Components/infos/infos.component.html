@@ -1,1 +1,4 @@
-Informations
+<div class="TitreInfos">Informations</div>
+<div *ngIf="this.auth.EstEnLigne">
+    Vous etes en ligne en tant que {{ this.auth.userAccount.pseudo }}
+</div>
