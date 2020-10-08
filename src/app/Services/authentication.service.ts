@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Router } from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import { Account } from '../Models/account';
 
 import {Md5} from 'ts-md5';
+import {Message} from '../Models/message';
 
 
 interface NewAccount {
@@ -16,25 +17,34 @@ interface NewAccount {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class AuthenticationService implements CanActivate {
 
-  private loggedInStatus = false;
+
   private apiURL = 'http://localhost:1789/';
+  public EstEnLigne = false;
+  public userAccount: Account;
+  public MessageAccount: Message;
 
 
   constructor(private http: HttpClient, private router: Router) {
 
   }
 
-  setLoggedIn(value: boolean) {
-    this.loggedInStatus = value;
+  GetMessages(){
+    this.http.get<any>(this.apiURL + 'messages').subscribe( res => {
+      console.log(res);
+      this.MessageAccount = res;
+      return this.MessageAccount;
+    });
   }
 
-  get isLoggedIn() {
-    return this.loggedInStatus;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (!this.EstEnLigne) {
+      return this.router.parseUrl('/login');
+    } else {
+      return this.EstEnLigne;
+    }
   }
-
-
 
   loginUser(event) {
     event.preventDefault();
@@ -42,11 +52,10 @@ export class AuthenticationService {
     const username = target.querySelector('#username').value;
     const password = target.querySelector('#password').value;
     console.log(username, password);
-    this.LoginTest(username, password);
+    this.LoginSystem(username, password);
   }
 
-  LoginTest(pseudo: string, password: string){
-    let EstTrouve: boolean = false;
+  LoginSystem(pseudo: string, password: string){
     const md5 = new Md5();
     const AccountLink = this.apiURL + 'accounts/' + pseudo + '&' + md5.appendStr(password).end();
     const httpOptions = {
@@ -56,17 +65,15 @@ export class AuthenticationService {
     };
 
     this.http.get<any>(AccountLink).subscribe( res => {
-      EstTrouve = true;
-      console.log(EstTrouve);
+      this.EstEnLigne = true;
+      this.userAccount = res;
+      console.log(this.userAccount);
       this.router.navigateByUrl('/discuss');
     }, err => {
       console.log(err.message);
     }, () => {
       console.log('completed');
-    });
-    if (EstTrouve === false) {
-      alert('Pseudo ou Mot de passe incorrect');
-    }
 
+    });
   }
 }
