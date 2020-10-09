@@ -1,3 +1,5 @@
 <div id="MainTchatRoom">
-  <div *ngFor="let msg of this.Messages | async">{{msg.content}}</div>
+  <div class="Bubble" *ngFor="let msg of this.Messages | async">
+    <div class="bold">{{ msg.account.pseudo }}, {{ msg.date_envoi | date:'dd/MM/yyyy à hh:mm:ss'}}:</div> <div>{{ msg.content }}</div>
+  </div>
 </div>

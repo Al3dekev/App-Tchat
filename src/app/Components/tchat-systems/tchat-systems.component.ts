@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable, interval} from 'rxjs';
 import {AuthenticationService} from '../../Services/authentication.service';
 import {startWith, switchMap} from 'rxjs/operators';
+import {Message} from '../../Models/message';
 
 @Component({
   selector: 'app-tchat-systems',
@@ -10,16 +11,14 @@ import {startWith, switchMap} from 'rxjs/operators';
 })
 export class TchatSystemsComponent implements OnInit {
 
-  @Input() Messages: Observable<any>;
+  public Messages: Observable<any>;
+  public SomeMessages: Message;
 
-  constructor(private auth: AuthenticationService) { }
+  constructor(private auth: AuthenticationService) {
+    this.Messages = interval(20).pipe(startWith(0)).pipe(switchMap(async () => this.auth.GetMessages()));
+  }
 
   ngOnInit(): void {
-    /*interval(2000).pipe(startWith(0)).subscribe(() => {
-      this.Messages = this.auth.GetMessages();
-    });*/
-    console.log("INIT TCHAT");
-    this.Messages = interval(2000).pipe(startWith(0)).pipe(switchMap(async () => this.auth.GetMessages()));
 
   }
 
