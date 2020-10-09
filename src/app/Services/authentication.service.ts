@@ -30,12 +30,22 @@ export class AuthenticationService implements CanActivate {
 
   }
 
-  GetMessages(){
+  SendAMessage(message) {
+    const NewMsg = new Message();
+    NewMsg.account = this.userAccount;
+    NewMsg.content = message;
+    this.http.post(this.apiURL + 'messages', NewMsg).subscribe(res => {
+      // console.log(res);
+    });
+  }
+
+
+  GetMessages(): Message{
     this.http.get<any>(this.apiURL + 'messages').subscribe( res => {
-      console.log(res);
       this.MessageAccount = res;
       return this.MessageAccount;
     });
+    return this.MessageAccount;
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
