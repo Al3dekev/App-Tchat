@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
+import {AuthenticationService} from '../../Services/authentication.service';
 
 @Component({
   selector: 'app-discuss',
@@ -11,11 +12,15 @@ export class DiscussComponent implements OnInit {
   /*MessageForm = new FormControl('', [
 
   ]);*/
+  public NouvMess: string;
 
-  constructor() {
+  constructor(public auth: AuthenticationService) {
 
   }
 
+  ClickToSave(){
+    this.auth.SendAMessage(this.NouvMess);
+  }
 
   ngOnInit(): void {
   }
