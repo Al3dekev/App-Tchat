@@ -35,5 +35,19 @@
   justify-content: center ;
   align-items: center ;
   align-content: center ;
-  margin-top: 150px;
+  margin-top: 50px;
+}
+
+.AllUpperBlocks app-infos, .AllUpperBlocks app-logo{
+  height: 100%;
+  width: 100%;
+  background-color: bisque;
+  text-align: center;
+  border-radius:25px;
+  border: 1px solid darkgrey;
+}
+
+.AllUpperBlocks div{
+  height: 100%;
+  width: 100%;
 }
