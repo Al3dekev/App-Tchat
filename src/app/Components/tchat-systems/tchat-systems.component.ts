@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Observable, interval} from 'rxjs';
 import {AuthenticationService} from '../../Services/authentication.service';
 import {startWith, switchMap} from 'rxjs/operators';

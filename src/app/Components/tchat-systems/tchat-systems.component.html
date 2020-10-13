@@ -1,5 +1,5 @@
-<div id="MainTchatRoom">
-  <div class="Bubble" *ngFor="let msg of this.Messages | async">
-    <div class="bold">{{ msg.account.pseudo }}, {{ msg.date_envoi | date:'dd/MM/yyyy à hh:mm:ss'}}:</div> <div>{{ msg.content }}</div>
+<cdk-virtual-scroll-viewport itemSize="50" class="TchatScroll">
+  <div class="example-item" *cdkVirtualFor="let msg of this.Messages | async">
+    <div class="bold">{{ msg.account.pseudo }}, {{ msg.date_envoi | date:'dd/MM/yyyy à HH\'h\'mm\'m\'ss'}}:</div> <div>{{ msg.content }}</div>
   </div>
-</div>
+</cdk-virtual-scroll-viewport>
