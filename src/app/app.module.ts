@@ -17,6 +17,7 @@ import { TchatSystemsComponent } from './Components/tchat-systems/tchat-systems.
 import { BubbleComponent } from './Components/bubble/bubble.component';
 import {CommonModule} from '@angular/common';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     ReactiveFormsModule,
     MatInputModule,
     CommonModule,
-    ScrollingModule
+    ScrollingModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

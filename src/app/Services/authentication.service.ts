@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import {ElementRef, Injectable, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import { Account } from '../Models/account';
 
 import {Md5} from 'ts-md5';
 import {Message} from '../Models/message';
+import {CdkScrollable} from '@angular/cdk/overlay';
+import {Observable} from 'rxjs';
 
 
 interface NewAccount {

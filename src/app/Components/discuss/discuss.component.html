@@ -1,13 +1,15 @@
 <div class="FlexibleTchat">
   <div class="TitleDiscuss">Main Room</div>
   <div class="ZoneDeTchat">
-    <app-tchat-systems></app-tchat-systems>
+    <app-tchat-systems #ChatSystem></app-tchat-systems>
   </div>
   <div class="TaperMessage">
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="EcrireMessageField">
       <mat-label>Message...</mat-label>
       <input matInput [(ngModel)]="NouvMess">
     </mat-form-field>
-    <button mat-button (click)="this.ClickToSave()">Envoyer</button>
+    <button mat-stroked-button color="primary" (click)="this.ClickToSave()">
+      <mat-icon>send</mat-icon>
+    </button>
   </div>
 </div>

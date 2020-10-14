@@ -30,3 +30,9 @@ button#submit {
   font-size: 20px;
   cursor: pointer;
 }
+
+
+.titreForm {
+  font-size: 21pt;
+  margin:10px 0;
+}
