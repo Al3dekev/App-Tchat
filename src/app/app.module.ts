@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './Components/AppComponent/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './Components/login/login.component';
 import { LogoComponent } from './Components/logo/logo.component';
 import { InfosComponent } from './Components/infos/infos.component';
@@ -19,6 +19,7 @@ import {CommonModule} from '@angular/common';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatIconModule} from '@angular/material/icon';
 import { UpperAppInfosComponent } from './Components/upper-app-infos/upper-app-infos.component';
+import {CheckJWTInterceptor} from './Interceptors/check-jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,13 @@ import { UpperAppInfosComponent } from './Components/upper-app-infos/upper-app-i
     ScrollingModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CheckJWTInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
