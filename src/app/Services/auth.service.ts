@@ -7,13 +7,15 @@ import {Router} from '@angular/router';
 })
 export class AuthService {
 
-  private _URL = 'http://localhost:1789/';
+  private _URL: string;
   private _token: string;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    this.URL = 'http://localhost:1789/';
+  }
 
 
-  login(){
+  TryToLogin(): any{
 
   }
 

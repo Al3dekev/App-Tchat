@@ -3,7 +3,7 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpResponse
+  HttpInterceptor, HttpResponse, HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {AuthService} from '../Services/auth.service';
@@ -17,18 +17,23 @@ export class CheckJWTInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const authReq = request.clone({
-      headers: request.headers.set('Authorization', 'Bearer ' + this.as.token)
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.as.token
+      })
     });
 
     return next.handle(authReq).pipe(
-      tap(e => {
-        if (e instanceof HttpResponse){
-          this.as.token = e.headers.get('token');
+      tap(event => {
+        if (event instanceof HttpResponse){
+          this.as.token = event.headers.get('token');
         }
       }, error => {
         console.log('issue while trying to retrieve new token: ' + error);
       })
-    );
+      // ici, gerer si erreur err.status <> 400-499 alors rediriger route vers page login
+      // + this.EstEnligne = false donc CanActivate = false
+    ;
   }
 
 }
