@@ -18,6 +18,7 @@ import { BubbleComponent } from './Components/bubble/bubble.component';
 import {CommonModule} from '@angular/common';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatIconModule} from '@angular/material/icon';
+import { UpperAppInfosComponent } from './Components/upper-app-infos/upper-app-infos.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {MatIconModule} from '@angular/material/icon';
     RegisterComponent,
     DiscussComponent,
     TchatSystemsComponent,
-    BubbleComponent
+    BubbleComponent,
+    UpperAppInfosComponent
   ],
   imports: [
     BrowserModule,
