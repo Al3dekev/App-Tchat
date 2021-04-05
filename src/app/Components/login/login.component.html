@@ -1,12 +1,17 @@
-<form (submit)="this.Auth.loginUser($event)">
+<form [formGroup]="this.ConnexionForm" (submit)="this.AuthIdentifiants()">
   <div class="container">
-    <div class="titreForm">{{ this.titreForm }}</div>
-    <div>
-      <input type="text" autocomplete="off" placeholder="Pseudonyme" id="username">
-    </div>
-    <div>
-      <input type="password" autocomplete="off" placeholder="Mot de passe" id="password">
-    </div>
+    <mat-form-field>
+      <mat-label>Pseudonyme</mat-label>
+      <input autocomplete="off" type="text" matInput id="username" placeholder="Pseudonyme..." formControlName="pseudonyme">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Mot de passe</mat-label>
+      <input autocomplete="off" type="text" matInput id="password" placeholder="Mot de passe..." formControlName="motdepasse">
+    </mat-form-field>
+    <mat-form-field>
+      <!--<mat-label>Code d'enregistrement</mat-label>-->
+      <input [disabled]="true" autocomplete="off" type="text" matInput id="registercode" placeholder="">
+    </mat-form-field>
     <div>
       <button mat-mini-fab color="primary" type="Submit">
         <mat-icon>login</mat-icon>

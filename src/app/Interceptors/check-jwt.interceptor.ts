@@ -3,16 +3,18 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpResponse, HttpHeaders
+  HttpInterceptor, HttpResponse, HttpHeaders, HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {AuthService} from '../Services/auth.service';
-import {tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
+import {LocalStorageService} from '../Services/local-storage.service';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class CheckJWTInterceptor implements HttpInterceptor {
 
-  constructor(private as: AuthService) {
+  constructor(private as: AuthService, private router: Router) {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -24,16 +26,26 @@ export class CheckJWTInterceptor implements HttpInterceptor {
     });
 
     return next.handle(authReq).pipe(
-      tap(event => {
-        if (event instanceof HttpResponse){
-          this.as.token = event.headers.get('token');
-        }
-      }, error => {
-        console.log('issue while trying to retrieve new token: ' + error);
-      })
-      // ici, gerer si erreur err.status <> 400-499 alors rediriger route vers page login
-      // + this.EstEnligne = false donc CanActivate = false
-    ;
+      tap((event: HttpResponse<any>) => {
+          if (event instanceof HttpResponse) {
+            this.as.token = event.headers.get('token');
+          }
+        },
+        (error) => {
+          if (error instanceof HttpErrorResponse){
+            console.log(error.error);
+            if (error.status >= 400 && error.status < 500) {
+              this.as.EstEnLigne = false;
+              this.router.navigateByUrl('/auth/login');
+              // this.EstEnLigne = false
+              // CanActivate => False
+              // router redirect to login page
+            }
+          } else {
+            console.log('issue while trying to retrieve new token:', error);
+          }
+        })
+    );
   }
 
 }

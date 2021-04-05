@@ -10,11 +10,6 @@ import { catchError } from 'rxjs/operators';
 export class AccountService {
 
   private apiServer = 'http://localhost:1789';
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
 
   constructor(private httpClient: HttpClient) { }
 

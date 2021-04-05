@@ -20,6 +20,10 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatIconModule} from '@angular/material/icon';
 import { UpperAppInfosComponent } from './Components/upper-app-infos/upper-app-infos.component';
 import {CheckJWTInterceptor} from './Interceptors/check-jwt.interceptor';
+import { AuthComponent } from './Components/auth/auth.component';
+import { MainComponent } from './Components/main/main.component';
+import { NoDiscussComponent } from './Components/no-discuss/no-discuss.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,10 @@ import {CheckJWTInterceptor} from './Interceptors/check-jwt.interceptor';
     DiscussComponent,
     TchatSystemsComponent,
     BubbleComponent,
-    UpperAppInfosComponent
+    UpperAppInfosComponent,
+    AuthComponent,
+    MainComponent,
+    NoDiscussComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +51,8 @@ import {CheckJWTInterceptor} from './Interceptors/check-jwt.interceptor';
     MatInputModule,
     CommonModule,
     ScrollingModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule
   ],
   providers: [
     {

@@ -3,16 +3,34 @@ import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from './Components/login/login.component';
 import {RegisterComponent} from './Components/register/register.component';
 import {DiscussComponent} from './Components/discuss/discuss.component';
-import {AuthenticationService} from './Services/authentication.service';
+import {AuthGuard} from './Guards/auth.guard';
+import {AuthComponent} from './Components/auth/auth.component';
+import {MainComponent} from './Components/main/main.component';
+import {NoDiscussComponent} from './Components/no-discuss/no-discuss.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'discuss', component: DiscussComponent, canActivate: [AuthenticationService] },
+  {
+    path: 'auth', component: AuthComponent,
+    children: [
+      {path: 'login', component: LoginComponent},
+      {path: 'register', component: RegisterComponent},
+      { path: '**', redirectTo: 'login' }
+    ]
+  },
+  {
+    path: 'main', component: MainComponent,
+    children: [
+      {path: '', component: NoDiscussComponent},
+      {path: 'discuss', component: DiscussComponent},
+      {path: 'register', component: RegisterComponent},
+      { path: '**', redirectTo: '' }
+    ],
+    canActivate: [AuthGuard]
+  },
 
-  // otherwise redirect to home
-  { path: '**',
-    redirectTo: 'login' }
+
+  // otherwise redirect to 'auth/login'
+  { path: '**', redirectTo: 'auth/login' }
 ];
 
 @NgModule({

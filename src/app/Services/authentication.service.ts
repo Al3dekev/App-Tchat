@@ -70,11 +70,7 @@ export class AuthenticationService implements CanActivate {
   LoginSystem(pseudo: string, password: string){
     const md5 = new Md5();
     const AccountLink = this.apiURL + 'accounts/' + pseudo + '&' + md5.appendStr(password).end();
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-      })
-    };
+
 
     this.http.get<any>(AccountLink).subscribe( res => {
       this.EstEnLigne = true;

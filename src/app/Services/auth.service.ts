@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {Md5} from 'ts-md5';
+import {LocalStorageService} from './local-storage.service';
+import {Account} from '../Models/account';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +12,42 @@ export class AuthService {
 
   private _URL: string;
   private _token: string;
+  private _EstEnLigne: boolean;
+  private _userAccount: Account;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private lss: LocalStorageService) {
     this.URL = 'http://localhost:1789/';
   }
 
 
-  TryToLogin(): any{
+  TryToLogin(username: string, password: string): any{
+    const md5 = new Md5();
+    const loginURL = this.URL + 'auth/logger/';
+    const bodyURL = {
+      username,
+      password: md5.appendStr(password).end()
+    };
+
+    this.http.post<Account>(loginURL, bodyURL).subscribe( res => {
+      this.EstEnLigne = true;
+      this.userAccount = res;
+      console.log(this.userAccount);
+      if (res.pseudo === username && res.password === md5.appendStr(password).end()){
+        this.router.navigateByUrl('/discuss').then((e) => {
+          console.log(e);
+        }).catch((e) => {
+          console.log(e);
+        });
+      } else{
+        console.log('Mauvais identifiants');
+      }
+
+    }, err => {
+      console.log(err.message);
+    }, () => {
+      console.log('completed');
+
+    });
 
   }
 
@@ -29,10 +61,31 @@ export class AuthService {
   }
 
   get token(): string {
-    return this._token;
+    if (this._token === this.lss.get('token')){
+      return this._token;
+    } else {
+      return '';
+    }
   }
 
   set token(value: string) {
+    this.lss.set('token', value);
     this._token = value;
+  }
+
+  get EstEnLigne(): boolean {
+    return this._EstEnLigne;
+  }
+
+  set EstEnLigne(value: boolean) {
+    this._EstEnLigne = value;
+  }
+
+  get userAccount(): Account {
+    return this._userAccount;
+  }
+
+  set userAccount(value: Account) {
+    this._userAccount = value;
   }
 }

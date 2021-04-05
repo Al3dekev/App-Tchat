@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import {AuthenticationService} from '../../Services/authentication.service';
 import {Account} from '../../Models/account';
 import {catchError} from 'rxjs/operators';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {AuthService} from '../../Services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,13 +18,27 @@ export class LoginComponent implements OnInit {
   @Input() name: string;
   public type: string;
   public titreForm: string;
+  public ConnexionForm: FormGroup;
 
-  constructor(public Auth: AuthenticationService, public router: Router) {
+  constructor(public Auth: AuthService, public router: Router, private formBuilder: FormBuilder) {
     this.type = this.name;
     this.titreForm = 'Connexion';
   }
 
-  ngOnInit() {
+  AuthIdentifiants(): void{
+    const formValue = this.ConnexionForm.value;
+    this.Auth.TryToLogin(formValue.pseudonyme, formValue.motdepasse);
+  }
+
+  FormConnexion(): void{
+    this.ConnexionForm = this.formBuilder.group({
+      pseudonyme: '',
+      motdepasse: ''
+    });
+  }
+
+  ngOnInit(): void {
+    this.FormConnexion();
   }
 
 

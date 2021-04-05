@@ -1,13 +1,21 @@
 <form (submit)="this.Auth.loginUser($event)">
   <div class="container">
+    <mat-form-field>
+      <mat-label>Pseudonyme</mat-label>
+      <input autocomplete="off" type="text" matInput id="username" placeholder="Pseudonyme...">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Mot de passe</mat-label>
+      <input autocomplete="off" type="text" matInput id="password" placeholder="Mot de passe...">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Code d'enregistrement</mat-label>
+      <input autocomplete="off" type="text" matInput id="registercode" placeholder="Code...">
+    </mat-form-field>
     <div>
-      <input type="text" autocomplete="off" placeholder="Pseudonyme" id="username">
-    </div>
-    <div>
-      <input type="password" autocomplete="off" placeholder="Mot de passe" id="password">
-    </div>
-    <div>
-      <button mat-button type="Submit">Inscription</button>
+      <button mat-mini-fab color="primary" type="Submit">
+        <mat-icon>login</mat-icon>
+      </button>
     </div>
   </div>
 </form>
