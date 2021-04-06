@@ -18,8 +18,10 @@ export class AuthGuard implements CanActivate {
     // this.lss.get('token');
     // this.EstEnLigne = true;
     if (this.lss.get('token') !== '' || !this.lss.get('token') !== null){
+      console.log('[GUARD]: Route isn\'t allowed');
       return this.router.parseUrl('/auth/login');
     } else {
+      console.log('[GUARD]: Route is allowed');
       return true;
     }
   }

@@ -28,12 +28,12 @@ export class AuthService {
       password: md5.appendStr(password).end()
     };
 
-    this.http.post<Account>(loginURL, bodyURL).subscribe( res => {
+    this.http.post<any>(loginURL, bodyURL).subscribe( res => {
       this.EstEnLigne = true;
-      this.userAccount = res;
-      console.log(this.userAccount);
-      if (res.pseudo === username && res.password === md5.appendStr(password).end()){
-        this.router.navigateByUrl('/discuss').then((e) => {
+      console.log(res);
+      this.token = res.trim();
+      if (res.trim() !== ''){
+        this.router.navigate(['/main/discuss']).then((e) => {
           console.log(e);
         }).catch((e) => {
           console.log(e);

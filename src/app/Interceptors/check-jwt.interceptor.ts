@@ -20,9 +20,11 @@ export class CheckJWTInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const authReq = request.clone({
       headers: new HttpHeaders({
+        'Accept': 'text/html',
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.as.token
-      })
+      }),
+      responseType: 'text'
     });
 
     return next.handle(authReq).pipe(
