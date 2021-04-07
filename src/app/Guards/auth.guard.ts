@@ -14,10 +14,8 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // Checkif online
-    // this.lss.get('token');
-    // this.EstEnLigne = true;
-    if (this.lss.get('token') !== '' || !this.lss.get('token') !== null){
+
+    if (this.lss.get('token') === '' || this.lss.get('token') === null){
       console.log('[GUARD]: Route isn\'t allowed');
       return this.router.parseUrl('/auth/login');
     } else {

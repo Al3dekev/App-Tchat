@@ -30,7 +30,7 @@ const routes: Routes = [
 
 
   // otherwise redirect to 'auth/login'
-  { path: '**', redirectTo: 'auth/login' }
+  { path: '**', redirectTo: 'auth/login'}
 ];
 
 @NgModule({

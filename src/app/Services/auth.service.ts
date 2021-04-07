@@ -30,10 +30,10 @@ export class AuthService {
 
     this.http.post<any>(loginURL, bodyURL).subscribe( res => {
       this.EstEnLigne = true;
-      console.log(res);
       this.token = res.trim();
+      console.log(this.lss.get('token'));
       if (res.trim() !== ''){
-        this.router.navigate(['/main/discuss']).then((e) => {
+        this.router.navigateByUrl('/main').then((e) => {
           console.log(e);
         }).catch((e) => {
           console.log(e);
