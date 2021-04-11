@@ -24,6 +24,10 @@ import { AuthComponent } from './Components/auth/auth.component';
 import { MainComponent } from './Components/main/main.component';
 import { NoDiscussComponent } from './Components/no-discuss/no-discuss.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { DisconnectComponent } from './Components/disconnect/disconnect.component';
+import {AuthService} from './Services/auth.service';
+import {JWTTokenService} from './Services/jwttoken.service';
+import {LocalStorageService} from './Services/local-storage.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     UpperAppInfosComponent,
     AuthComponent,
     MainComponent,
-    NoDiscussComponent
+    NoDiscussComponent,
+    DisconnectComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +65,9 @@ import {MatTabsModule} from '@angular/material/tabs';
       useClass: CheckJWTInterceptor,
       multi: true,
     },
+    AuthService,
+    JWTTokenService,
+    LocalStorageService
   ],
   bootstrap: [AppComponent]
 })

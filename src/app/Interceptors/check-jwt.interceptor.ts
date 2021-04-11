@@ -38,7 +38,8 @@ export class CheckJWTInterceptor implements HttpInterceptor {
             console.log(error.error);
             if (error.status >= 400 && error.status < 500) {
               this.as.EstEnLigne = false;
-              this.router.navigateByUrl('/auth/login');
+              this.router.parseUrl('/auth/login');
+
               // this.EstEnLigne = false
               // CanActivate => False
               // router redirect to login page
