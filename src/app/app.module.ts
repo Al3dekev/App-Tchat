@@ -7,8 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './Components/login/login.component';
-import { LogoComponent } from './Components/logo/logo.component';
-import { InfosComponent } from './Components/infos/infos.component';
 import {MatButtonModule} from '@angular/material/button';
 import { RegisterComponent } from './Components/register/register.component';
 import { DiscussComponent } from './Components/discuss/discuss.component';
@@ -33,8 +31,6 @@ import {LocalStorageService} from './Services/local-storage.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    LogoComponent,
-    InfosComponent,
     RegisterComponent,
     DiscussComponent,
     TchatSystemsComponent,
