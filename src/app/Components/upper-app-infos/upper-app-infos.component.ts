@@ -7,13 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpperAppInfosComponent implements OnInit {
 
-  TitleApp: string;
-  provBlocDeDroite: string;
 
-  constructor() {
-    this.TitleApp = 'AppTchat';
-    this.provBlocDeDroite = 'Bloc de droite';
-  }
+  constructor() {}
 
   ngOnInit(): void {
   }
