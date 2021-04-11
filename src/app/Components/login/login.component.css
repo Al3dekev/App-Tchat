@@ -9,13 +9,12 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
   padding: 10px 15px;
   margin: 10px 0;
-  border-width: 0 1px;
-  border-color: #a7a7a7;
-  border-style: none solid;
-  background-color: gainsboro;
+  border-radius: 25px;
+  width: 50%;
+  background-color: #EFE1CE;
 }
 
 button#submit {

@@ -6,3 +6,7 @@
 <div class="container-tab-auth">
   <router-outlet></router-outlet>
 </div>
+
+<div class="IncorrectPwd" *ngIf="this.as.ErrorAuth !== ''">
+  {{ this.EditErrorInWS() }}
+</div>

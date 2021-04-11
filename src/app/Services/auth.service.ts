@@ -14,9 +14,11 @@ export class AuthService {
   private _token: string;
   private _EstEnLigne: boolean;
   private _userAccount: Account;
+  private _ErrorAuth: string;
 
   constructor(private http: HttpClient, private router: Router, private lss: LocalStorageService) {
     this.URL = 'http://localhost:1789/';
+    this.ErrorAuth = '';
   }
 
 
@@ -34,9 +36,9 @@ export class AuthService {
       console.log(this.lss.get('token'));
       if (res.trim() !== ''){
         this.router.navigateByUrl('/main').then((e) => {
-          console.log(e);
+          console.log(e, 'err1');
         }).catch((e) => {
-          console.log(e);
+          console.log(e, 'err2');
         });
       } else{
         console.log('Mauvais identifiants');
@@ -87,5 +89,13 @@ export class AuthService {
 
   set userAccount(value: Account) {
     this._userAccount = value;
+  }
+
+  get ErrorAuth(): string {
+    return this._ErrorAuth;
+  }
+
+  set ErrorAuth(value: string) {
+    this._ErrorAuth = value;
   }
 }

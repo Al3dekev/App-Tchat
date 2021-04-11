@@ -6,6 +6,7 @@
   justify-content: center ;
   align-items: center ;
   align-content: center ;
+  margin-top: 25px;
 }
 
 
@@ -17,11 +18,29 @@
   justify-content: center ;
   align-items: center ;
   align-content: center ;
+  background-color: #EFE1CE;
+  border-radius: 20px 20px 0 0;
 }
 
 
 .container-tab-auth{
   width: 100%;
-  background: #eee;
+  background: #E0B589;
   border-radius: 0 0 20px 20px;
+}
+
+
+.IncorrectPwd{
+  color: red;
+  background-color: #EFE1CE;
+  width: 75%;
+  height: 25px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  /* border-color: #ca9a69; */
+  /* border-style: solid; */
+  /* border-width: 1px; */
+  border-radius: 0 0 50% 50%;
 }
