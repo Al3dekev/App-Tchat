@@ -29,6 +29,7 @@ export class CheckJWTInterceptor implements HttpInterceptor {
 
     return next.handle(authReq).pipe(
       tap((event: HttpResponse<any>) => {
+          this.as.ErrorAuth = '';
           if (event instanceof HttpResponse) {
             this.as.token = event.headers.get('token');
           }
@@ -36,13 +37,10 @@ export class CheckJWTInterceptor implements HttpInterceptor {
         (error) => {
           if (error instanceof HttpErrorResponse){
             console.log(error.error);
+            this.as.ErrorAuth = error.error;
             if (error.status >= 400 && error.status < 500) {
               this.as.EstEnLigne = false;
               this.router.parseUrl('/auth/login');
-
-              // this.EstEnLigne = false
-              // CanActivate => False
-              // router redirect to login page
             }
           } else {
             console.log('issue while trying to retrieve new token:', error);
