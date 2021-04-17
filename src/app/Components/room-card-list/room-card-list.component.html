@@ -1,0 +1,11 @@
+<cdk-virtual-scroll-viewport itemSize="60" class="TchatScroll">
+  <div class="RoomCard" *cdkVirtualFor="let grp of this.ListofRooms">
+    <div class="UpperRoomCard">
+      <div class="bold">{{ grp.name }}</div>
+      <div class="fewGrey">01/01/2021</div>
+    </div> <!-- Voir https://material.angular.io/components/list/examples -->
+    <div class="fewGrey LowerRoomCard">
+      Last message...
+    </div>
+  </div>
+</cdk-virtual-scroll-viewport>

@@ -1,0 +1,13 @@
+:host{
+  flex: 1 1 auto;
+}
+
+.TchatScroll {
+  height: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.RoomCard{
+  height: 60px;
+}

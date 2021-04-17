@@ -13,9 +13,10 @@ export class DisconnectComponent implements OnInit {
 
 
   disconnectFromTchat(): void{
-    this.as.EstEnLigne = false;
-    this.as.token = '';
-    this.router.navigateByUrl('auth/login');
+    this.as.clearTheToken();
+    this.router.navigateByUrl('auth/login').then( (e) => {
+      console.log(e);
+    });
   }
 
   ngOnInit(): void {
