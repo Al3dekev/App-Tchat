@@ -1,4 +1,12 @@
-<div class="TitreApp">
-  <img src="assets/apptchatlogo.png">
+<div [ngClass]="{'flexbasis30': this.router.url.includes('main'),
+                 'flexbasis100': !this.router.url.includes('main')}">
+  <img src="assets/apptchatlogo.png" style="max-width:250px;">
 </div>
-<div class="InfosGeneriques"></div>
+<div class="InfosGeneriques" *ngIf="this.router.url.includes('main')">
+  <div class="BlocInfosVide" *ngIf="this.router.url.includes('main')"><!-- Element vide --></div>
+  <div class="BlocInfosName" *ngIf="this.router.url.includes('main')">
+    <div>Nom Utilisateur:</div>
+    <div>{{ this.as.usernameToken }}</div>
+  </div>
+  <div class="BlocInfosDisconnect" *ngIf="this.router.url.includes('main')"><app-disconnect></app-disconnect></div>
+</div>
