@@ -5,8 +5,19 @@ import { Injectable } from '@angular/core';
 })
 export class LocalStorageService {
 
-  set(key: string, value: string): void {
-    localStorage.setItem(key, value);
+  public ConditionGuard: string[];
+
+  constructor(){
+    this.ConditionGuard = [
+      null,
+      'null',
+      '',
+      undefined
+    ];
+  }
+
+  async set(key: string, value: string): Promise<any> {
+    await localStorage.setItem(key, value);
   }
 
   get(key: string): any {
@@ -16,4 +27,5 @@ export class LocalStorageService {
   remove(key: string): void {
     localStorage.removeItem(key);
   }
+
 }

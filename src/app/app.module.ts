@@ -24,8 +24,8 @@ import { NoDiscussComponent } from './Components/no-discuss/no-discuss.component
 import {MatTabsModule} from '@angular/material/tabs';
 import { DisconnectComponent } from './Components/disconnect/disconnect.component';
 import {AuthService} from './Services/auth.service';
-import {JWTTokenService} from './Services/jwttoken.service';
 import {LocalStorageService} from './Services/local-storage.service';
+import { RoomCardListComponent } from './Components/room-card-list/room-card-list.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import {LocalStorageService} from './Services/local-storage.service';
     AuthComponent,
     MainComponent,
     NoDiscussComponent,
-    DisconnectComponent
+    DisconnectComponent,
+    RoomCardListComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +63,6 @@ import {LocalStorageService} from './Services/local-storage.service';
       multi: true,
     },
     AuthService,
-    JWTTokenService,
     LocalStorageService
   ],
   bootstrap: [AppComponent]

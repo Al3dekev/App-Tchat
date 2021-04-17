@@ -14,7 +14,7 @@ import {Router} from '@angular/router';
 @Injectable()
 export class CheckJWTInterceptor implements HttpInterceptor {
 
-  constructor(private as: AuthService, private router: Router) {
+  constructor(private as: AuthService, private router: Router, private lss: LocalStorageService) {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -31,15 +31,21 @@ export class CheckJWTInterceptor implements HttpInterceptor {
       tap((event: HttpResponse<any>) => {
           this.as.ErrorAuth = '';
           if (event instanceof HttpResponse) {
-            this.as.token = event.headers.get('token');
+            console.log('INTERCEPTOR', event.headers);
+            if (!this.lss.ConditionGuard.includes(event.headers.get('token'))){
+              this.as.token = event.headers.get('token');
+            } else {
+              console.log('token is missing in header');
+            }
           }
         },
         (error) => {
           if (error instanceof HttpErrorResponse){
-            console.log(error.error);
+            console.log(error.error, error.status);
             this.as.ErrorAuth = error.error;
             if (error.status >= 400 && error.status < 500) {
               this.as.EstEnLigne = false;
+              this.as.token = '';
               this.router.parseUrl('/auth/login');
             }
           } else {

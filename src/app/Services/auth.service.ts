@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {Md5} from 'ts-md5';
 import {LocalStorageService} from './local-storage.service';
 import {Account} from '../Models/account';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class AuthService {
   private _EstEnLigne: boolean;
   private _userAccount: Account;
   private _ErrorAuth: string;
+  private _decodedToken: any;
 
   constructor(private http: HttpClient, private router: Router, private lss: LocalStorageService) {
     this.URL = 'http://localhost:1789/';
@@ -24,13 +26,14 @@ export class AuthService {
 
   TryToLogin(username: string, password: string): any{
     const md5 = new Md5();
-    const loginURL = this.URL + 'auth/logger/';
+    const loginURL = this.URL + 'auth/logger';
     const bodyURL = {
       username,
       password: md5.appendStr(password).end()
     };
 
-    this.http.post<any>(loginURL, bodyURL).subscribe( res => {
+    this.http.post<any>(loginURL, bodyURL).subscribe( (res) => {
+      console.log('TOKEN GENERATED', res);
       this.EstEnLigne = true;
       this.token = res.trim();
       console.log(this.lss.get('token'));
@@ -45,7 +48,7 @@ export class AuthService {
       }
 
     }, err => {
-      console.log(err.message);
+      console.log(err, err.message);
     }, () => {
       console.log('completed');
 
@@ -53,6 +56,28 @@ export class AuthService {
 
   }
 
+  clearTheToken(): void {
+    this.token = '';
+    this.EstEnLigne = false;
+  }
+
+  get userIdToken(): any{
+    return this.decodedToken ? this.decodedToken.userId : null;
+  }
+  get expiredTimeToken(): any{
+    return this.decodedToken ? this.decodedToken.exp : null;
+  }
+  get usernameToken(): any{
+    return this.decodedToken ? this.decodedToken.username : null;
+  }
+
+  get decodedToken(): any {
+    return this._decodedToken;
+  }
+
+  set decodedToken(value: any) {
+    this._decodedToken = value;
+  }
 
   get URL(): string {
     return this._URL;
@@ -73,6 +98,11 @@ export class AuthService {
   set token(value: string) {
     this.lss.set('token', value);
     this._token = value;
+    if (!this.lss.ConditionGuard.includes(value)) {
+      this.decodedToken = jwt_decode(value);
+    } else {
+      this.decodedToken = '';
+    }
   }
 
   get EstEnLigne(): boolean {

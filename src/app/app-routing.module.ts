@@ -22,8 +22,7 @@ const routes: Routes = [
   {
     path: 'main', component: MainComponent,
     children: [
-      {path: 'discuss', component: DiscussComponent},
-      {path: 'register', component: RegisterComponent},
+      {path: 'discuss/:id', component: DiscussComponent},
       { path: '**', redirectTo: '' }
     ],
     canActivate: [AuthGuard]
