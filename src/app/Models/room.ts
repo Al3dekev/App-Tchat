@@ -4,7 +4,7 @@ import {Account} from './account';
 export class Room {
   id: number;
   name: string;
-  idAccountOwner: number;
+  AccountOwner: Account;
   dateCreation: string;
   members: Account[];
   messages: Message[];
