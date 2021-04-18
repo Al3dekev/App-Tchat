@@ -4,79 +4,86 @@
   flex: 1 1 auto;
 }
 
-
-.center-everything-flex{
+.center-main, .center-auth{
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.center-main{
   align-content: center;
   height: 100%;
   flex: 1 1 100%;
 }
 
+.center-auth{
+  justify-content: center;
+  align-content: flex-start;
+}
+
 
 .AppTchatSystem{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: stretch;
-  align-content: center;
+display: flex;
+flex-direction: column;
+flex-wrap: nowrap;
+justify-content: space-between;
+align-items: stretch;
+align-content: center;
 }
 
 
 .AllUpperBlocks{
-  display: flex ;
-  flex-direction: row ;
-  flex-wrap: nowrap ;
-  justify-content: center ;
-  align-items: center ;
-  align-content: center ;
-  height: 150px;
+display: flex ;
+flex-direction: row ;
+flex-wrap: nowrap ;
+justify-content: center ;
+align-items: center ;
+align-content: center ;
+height: 150px;
 }
 
 .selectorButton {
-  display: flex ;
-  flex-direction: row ;
-  flex-wrap: nowrap ;
-  justify-content: center ;
-  align-items: center ;
-  align-content: center ;
-  height: 70px;
+display: flex ;
+flex-direction: row ;
+flex-wrap: nowrap ;
+justify-content: center ;
+align-items: center ;
+align-content: center ;
+height: 70px;
 }
 
 .AllLowerBlocks {
-  display: flex ;
-  flex-direction: row ;
-  flex-wrap: nowrap ;
-  justify-content: center ;
-  align-items: center ;
-  align-content: center ;
-  margin-top: 50px;
+display: flex ;
+flex-direction: row ;
+flex-wrap: nowrap ;
+justify-content: center ;
+align-items: center ;
+align-content: center ;
+margin-top: 50px;
 }
 
 .AllUpperBlocks app-infos, .AllUpperBlocks app-logo{
-  height: 100%;
-  width: 100%;
-  background-color: bisque;
-  text-align: center;
-  border-radius:25px;
-  border: 1px solid darkgrey;
+height: 100%;
+width: 100%;
+background-color: bisque;
+text-align: center;
+border-radius:25px;
+border: 1px solid darkgrey;
 }
 
 .AllUpperBlocks div{
-  height: 100%;
-  width: 100%;
+height: 100%;
+width: 100%;
 }
 
 
 .AppTitleStyle{
-  display: flex ;
-  flex-direction: column ;
-  flex-wrap: wrap ;
-  justify-content: center ;
-  align-items: center ;
-  align-content: center ;
-  font-family: Roboto;
-  font-size: 25pt;
+display: flex ;
+flex-direction: column ;
+flex-wrap: wrap ;
+justify-content: center ;
+align-items: center ;
+align-content: center ;
+font-family: Roboto;
+font-size: 25pt;
 }

@@ -1,6 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {AuthenticationService} from '../../Services/authentication.service';
+import {MessageService} from '../../Services/message.service';
 
 @Component({
   selector: 'app-discuss',
@@ -15,14 +14,14 @@ export class DiscussComponent implements OnInit {
   public NouvMess: string;
   @ViewChild('ChatSystem') public ChatCall;
 
-  constructor(public auth: AuthenticationService) {
+  constructor(public MS: MessageService) {
 
   }
 
-  ClickToSave(){
+  /*ClickToSave(){
     this.auth.SendAMessage(this.NouvMess);
     this.ChatCall.scrollDown();
-  }
+  }*/
 
   ngOnInit(): void {
   }

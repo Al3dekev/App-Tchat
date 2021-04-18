@@ -1,0 +1,12 @@
+<form [formGroup]="this.MessageForm" (submit)="this.SendMessage()">
+  <mat-form-field class="EcrireMessaChamgeField">
+    <mat-label>Message...</mat-label>
+    <input matInput>
+  </mat-form-field>
+  <mat-form-field>
+    <button mat-stroked-button color="primary">
+      <mat-icon>send</mat-icon>
+    </button>
+  </mat-form-field>
+</form>
+

@@ -14,10 +14,14 @@
 }
 
 .DiscussSide{
-  flex-basis: 70%;
+  flex-basis: 69%;
 }
 
-.DiscussSide, .LeftColumnSide{
+.DividerSide{
+  flex-basis: 1%;
+}
+
+.DiscussSide, .LeftColumnSide, .DividerSide{
   height: 100%;
   display: flex;
   flex-direction: column;

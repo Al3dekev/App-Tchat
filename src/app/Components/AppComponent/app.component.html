@@ -1,4 +1,4 @@
 <app-upper-app-infos></app-upper-app-infos>
-<div class="center-everything-flex">
+<div [ngClass]="{'center-main': this.route.url.includes('main'), 'center-auth': this.route.url.includes('auth')}">
   <router-outlet></router-outlet>
 </div>

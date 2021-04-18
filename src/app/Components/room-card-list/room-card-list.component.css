@@ -11,3 +11,11 @@
 .RoomCard{
   height: 60px;
 }
+
+
+.ListeRooms .mat-list-text{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

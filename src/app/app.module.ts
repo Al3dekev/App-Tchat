@@ -26,6 +26,9 @@ import { DisconnectComponent } from './Components/disconnect/disconnect.componen
 import {AuthService} from './Services/auth.service';
 import {LocalStorageService} from './Services/local-storage.service';
 import { RoomCardListComponent } from './Components/room-card-list/room-card-list.component';
+import {MatListModule} from '@angular/material/list';
+import {MatDividerModule} from '@angular/material/divider';
+import { EcritureMessageComponent } from './Components/ecriture-message/ecriture-message.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { RoomCardListComponent } from './Components/room-card-list/room-card-lis
     MainComponent,
     NoDiscussComponent,
     DisconnectComponent,
-    RoomCardListComponent
+    RoomCardListComponent,
+    EcritureMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,9 @@ import { RoomCardListComponent } from './Components/room-card-list/room-card-lis
     CommonModule,
     ScrollingModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatListModule,
+    MatDividerModule
   ],
   providers: [
     {

@@ -5,8 +5,9 @@
   </div>
   <app-room-card-list></app-room-card-list>
 </div>
-<div class="DiscussSide">
-  test
+<div class="DividerSide">
+  <mat-divider [vertical]="true"></mat-divider>
 </div>
-
-
+<div class="DiscussSide">
+  <router-outlet></router-outlet>
+</div>

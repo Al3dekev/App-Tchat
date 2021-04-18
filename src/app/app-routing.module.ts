@@ -8,6 +8,7 @@ import {AuthComponent} from './Components/auth/auth.component';
 import {MainComponent} from './Components/main/main.component';
 import {NoDiscussComponent} from './Components/no-discuss/no-discuss.component';
 import {AutoConnectGuard} from './Guards/auto-connect.guard';
+import {AccessRoomGuard} from './Guards/access-room.guard';
 
 const routes: Routes = [
   {
@@ -22,7 +23,7 @@ const routes: Routes = [
   {
     path: 'main', component: MainComponent,
     children: [
-      {path: 'discuss/:id', component: DiscussComponent},
+      {path: 'discuss/:id', component: DiscussComponent, canActivate: [AccessRoomGuard]},
       { path: '**', redirectTo: '' }
     ],
     canActivate: [AuthGuard]
