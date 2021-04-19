@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   public titreForm: string;
   public ConnexionForm: FormGroup;
 
-  constructor(public Auth: AuthService, public router: Router, private formBuilder: FormBuilder) {
+  constructor(public Auth: AuthService, private formBuilder: FormBuilder) {
     this.type = this.name;
     this.titreForm = 'Connexion';
   }

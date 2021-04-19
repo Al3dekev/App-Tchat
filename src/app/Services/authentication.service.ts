@@ -19,7 +19,7 @@ interface NewAccount {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService implements CanActivate {
+export class AuthenticationService {
 
 
   private apiURL = 'http://localhost:1789/';
@@ -50,38 +50,5 @@ export class AuthenticationService implements CanActivate {
     return this.MessageAccount;
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!this.EstEnLigne) {
-      return this.router.parseUrl('/login');
-    } else {
-      return this.EstEnLigne;
-    }
-  }
 
-  loginUser(event) {
-    event.preventDefault();
-    const target = event.target;
-    const username = target.querySelector('#username').value;
-    const password = target.querySelector('#password').value;
-    console.log(username, password);
-    this.LoginSystem(username, password);
-  }
-
-  LoginSystem(pseudo: string, password: string){
-    const md5 = new Md5();
-    const AccountLink = this.apiURL + 'accounts/' + pseudo + '&' + md5.appendStr(password).end();
-
-
-    this.http.get<any>(AccountLink).subscribe( res => {
-      this.EstEnLigne = true;
-      this.userAccount = res;
-      console.log(this.userAccount);
-      this.router.navigateByUrl('/discuss');
-    }, err => {
-      console.log(err.message);
-    }, () => {
-      console.log('completed');
-
-    });
-  }
 }

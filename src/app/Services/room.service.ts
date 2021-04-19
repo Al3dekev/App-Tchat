@@ -4,6 +4,7 @@ import {Account} from '../Models/account';
 import {Message} from '../Models/message';
 import {HttpClient} from '@angular/common/http';
 import {MessageService} from './message.service';
+import {AccountService} from './account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,17 +20,27 @@ export class RoomService {
   private _messages: Message[];
   private URL: string;
 
-  constructor(private http: HttpClient, private MS: MessageService) {
+  constructor(private http: HttpClient, private MS: MessageService, private AS: AccountService) {
     this.URL = 'http://localhost:1789/';
   }
 
 
-  getHttpRoom(id: string): any{
+  getHttpRoom(id: string): Room{
     this.http.get<any>(this.URL + 'rooms/' + id).subscribe((res) => {
-      this._actualRoom = JSON.parse(res);
+      this.actualRoom = JSON.parse(res);
       this.MS.getHttpMessages(id);
       return JSON.parse(res);
     });
+    return this.actualRoom;
+  }
+
+  createNewRoom(newRoomName: string): void{
+    const bodyRoomInfos = {
+      pseudo: this.AS.pseudo,
+      name: newRoomName
+    };
+    this.http.post<any>(this.URL + 'rooms/create/' + '')
+    // Appel HTTP pour creer la room - a revoir selon WS
   }
 
   get actualRoom(): Room {

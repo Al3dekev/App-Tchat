@@ -20,11 +20,19 @@ export class AccountService {
     this.URL = 'http://localhost:1789/';
   }
 
-  getHttpAccount(pseudonyme: string, password: string | Int32Array): void{
+  getHttpAccount(pseudonyme: string, password: string | Int32Array): Account{
       this.http.get<any>(this.URL + 'accounts/' + pseudonyme + '&' + password.toString() + '/details').subscribe((res) => {
         this.actualAccount = JSON.parse(res);
         return JSON.parse(res);
       });
+      return this.actualAccount;
+  }
+
+  createAccount(newPseudo: string, newMdp: string): void{
+    let newAcc = new Account();
+    newAcc.pseudo = newPseudo;
+    newAcc.password = newMdp;
+    // Faire un appel HTTP pour envoyer tout ça dans le body
   }
 
   get actualAccount(): Account {

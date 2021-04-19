@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../../Services/authentication.service';
+import {AccountService} from '../../Services/account.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -8,9 +10,24 @@ import {AuthenticationService} from '../../Services/authentication.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(public Auth: AuthenticationService) { }
+  public InscriptionForm: FormGroup;
+  private CodeEnregistrement = 'ABDH';
 
-  ngOnInit(): void {
+  constructor(private AS: AccountService, private formBuilder: FormBuilder) { }
+
+  CreatingAccount(): void{
+    this.AS.createAccount();
   }
 
+
+  FormInscription(): void{
+    this.InscriptionForm = this.formBuilder.group({
+      pseudonyme: '',
+      motdepasse: ''
+    });
+  }
+
+  ngOnInit(): void {
+    this.FormInscription();
+  }
 }

@@ -62,6 +62,13 @@ export class AuthService {
 
   }
 
+  disconnectFromTchat(): void{
+    this.clearTheToken();
+    this.router.navigateByUrl('auth/login').then( (e) => {
+      console.log(e);
+    });
+  }
+
   clearTheToken(): void {
     this.token = '';
     this.EstEnLigne = false;

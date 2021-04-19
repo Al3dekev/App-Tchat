@@ -31,7 +31,6 @@ export class CheckJWTInterceptor implements HttpInterceptor {
       tap((event: HttpResponse<any>) => {
           this.as.ErrorAuth = '';
           if (event instanceof HttpResponse) {
-            console.log('INTERCEPTOR', event.headers);
             if (!this.lss.ConditionGuard.includes(event.headers.get('token'))){
               this.as.token = event.headers.get('token');
             } else {

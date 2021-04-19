@@ -10,8 +10,7 @@
 
 .TchatScroll {
   height: 500px;
-  width: 500px;
-  border: 1px solid black;
+  width: 100%;
   overflow: scroll
 }
 

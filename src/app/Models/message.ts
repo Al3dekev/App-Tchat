@@ -6,5 +6,5 @@ export class Message {
   content: string;
   date_envoi: string;
   account: Account;
-  RoomList: Room[];
+  RoomList: Room;
 }

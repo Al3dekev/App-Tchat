@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../Services/auth.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-disconnect',
@@ -9,15 +8,7 @@ import {Router} from '@angular/router';
 })
 export class DisconnectComponent implements OnInit {
 
-  constructor(private as: AuthService, private router: Router) { }
-
-
-  disconnectFromTchat(): void{
-    this.as.clearTheToken();
-    this.router.navigateByUrl('auth/login').then( (e) => {
-      console.log(e);
-    });
-  }
+  constructor(public as: AuthService) { }
 
   ngOnInit(): void {
   }
