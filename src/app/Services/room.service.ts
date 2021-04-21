@@ -20,7 +20,9 @@ export class RoomService {
   private _messages: Message[];
   private URL: string;
 
-  constructor(private http: HttpClient, private MS: MessageService, private AS: AccountService) {
+  constructor(private http: HttpClient,
+              private AS: AccountService,
+              private MS: MessageService) {
     this.URL = 'http://localhost:1789/';
   }
 
@@ -28,6 +30,7 @@ export class RoomService {
   getHttpRoom(id: string): Room{
     this.http.get<any>(this.URL + 'rooms/' + id).subscribe((res) => {
       this.actualRoom = JSON.parse(res);
+      this.MS.LinkedRoomId = id;
       this.MS.getHttpMessages(id);
       return JSON.parse(res);
     });
@@ -39,7 +42,9 @@ export class RoomService {
       pseudo: this.AS.pseudo,
       name: newRoomName
     };
-    this.http.post<any>(this.URL + 'rooms/create/' + '')
+    this.http.post<any>(this.URL + 'rooms/create', bodyRoomInfos).subscribe((e) => {
+        // mettre a jour la liste des rooms de l'AccountService
+    });
     // Appel HTTP pour creer la room - a revoir selon WS
   }
 

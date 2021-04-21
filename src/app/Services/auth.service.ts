@@ -22,19 +22,17 @@ export class AuthService {
   constructor(private http: HttpClient,
               private router: Router,
               private lss: LocalStorageService,
-              private accS: AccountService,
-              private RooS: RoomService){
+              private accS: AccountService){
     this.URL = 'http://localhost:1789/';
     this.ErrorAuth = '';
   }
 
 
-  TryToLogin(username: string, password: string): any{
-    const md5 = new Md5();
+  TryToLogin(username: string, password: string, alreadyMD5: boolean = false): any{
     const loginURL = this.URL + 'auth/logger';
     const bodyURL = {
       username,
-      password: md5.appendStr(password).end()
+      password: alreadyMD5 ? password : this.convertToMD5(password)
     };
 
     this.http.post<any>(loginURL, bodyURL).subscribe( (res) => {
@@ -60,6 +58,22 @@ export class AuthService {
 
     });
 
+  }
+
+  createAccount(newPseudo: string, newMdp: string): void{
+    const newAcc = new Account();
+    newAcc.pseudo = newPseudo;
+    newAcc.password = this.convertToMD5(newMdp);
+
+    this.http.post<any>(this.URL + 'auth/register/', newAcc).subscribe((e) => {
+      console.log('creation de compte', e.pseudo, e.password);
+      if (!this.lss.ConditionGuard.includes(e.pseudo) && !this.lss.ConditionGuard.includes(e.password)) {
+        console.log('trytolog en cours..');
+        this.TryToLogin(e.pseudo, e.password, true);
+      }
+    }, err => {
+      console.log('erreur de creation de compte', err, err.message);
+    });
   }
 
   disconnectFromTchat(): void{
@@ -116,6 +130,11 @@ export class AuthService {
     } else {
       this.decodedToken = '';
     }
+  }
+
+  convertToMD5(elementToConvert: string): string{
+    const md5 = new Md5();
+    return md5.appendStr(elementToConvert).end() as string;
   }
 
   get EstEnLigne(): boolean {

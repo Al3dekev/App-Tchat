@@ -1,16 +1,16 @@
-<form (submit)="">
+<form [formGroup]="this.InscriptionForm" (submit)="this.CreatingAccount()">
   <div class="container">
     <mat-form-field>
       <mat-label>Pseudonyme</mat-label>
-      <input autocomplete="off" type="text" matInput id="username" placeholder="Pseudonyme...">
+      <input [required]="true" type="text" matInput id="username" placeholder="Pseudonyme..." formControlName="pseudonyme">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Mot de passe</mat-label>
-      <input autocomplete="off" type="password" matInput id="password" placeholder="Mot de passe...">
+      <input [required]="true" type="password" matInput id="password" placeholder="Mot de passe..." formControlName="password">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Code d'enregistrement</mat-label>
-      <input autocomplete="off" type="text" matInput id="registercode" placeholder="Code...">
+      <input autocomplete="off" type="text" matInput id="registercode" placeholder="Code..." formControlName="registercode">
     </mat-form-field>
     <div>
       <button mat-mini-fab color="primary" type="Submit">

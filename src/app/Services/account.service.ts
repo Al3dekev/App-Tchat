@@ -3,6 +3,9 @@ import {Message} from '../Models/message';
 import {Room} from '../Models/room';
 import {Account} from '../Models/account';
 import {HttpClient} from '@angular/common/http';
+import {Md5} from 'ts-md5';
+import {LocalStorageService} from './local-storage.service';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,13 +29,6 @@ export class AccountService {
         return JSON.parse(res);
       });
       return this.actualAccount;
-  }
-
-  createAccount(newPseudo: string, newMdp: string): void{
-    let newAcc = new Account();
-    newAcc.pseudo = newPseudo;
-    newAcc.password = newMdp;
-    // Faire un appel HTTP pour envoyer tout ça dans le body
   }
 
   get actualAccount(): Account {

@@ -12,17 +12,16 @@ import {AccountService} from './account.service';
 export class MessageService {
 
   private _actualMessages: Message[];
-  private URL: string;
+  private _URL: string;
+  private _LinkedRoomId: string;
 
-  constructor(private http: HttpClient,
-              private RS: RoomService,
-              private AS: AccountService) {
+  constructor(private http: HttpClient, private AS: AccountService) {
     this.URL = 'http://localhost:1789/';
   }
 
 
-  getHttpMessages(id: string | number = this.RS.id): Message[]{
-    this.http.get<any>(this.URL + 'messages/' + id).subscribe((res) => {
+  getHttpMessages(id: string | number = this.LinkedRoomId): Message[]{
+    this.http.get<any>(this._URL + 'messages/' + id).subscribe((res) => {
       this.actualMessages = JSON.parse(res);
       return JSON.parse(res);
     });
@@ -33,7 +32,7 @@ export class MessageService {
     const NewMsg = new Message();
     NewMsg.account = this.AS.actualAccount;
     NewMsg.content = MessageTexte;
-    this.http.post(this.URL + 'messages', NewMsg).subscribe(res => {
+    this.http.post(this._URL + 'messages', NewMsg).subscribe(res => {
       console.log(res);
       this.getHttpMessages();
     });
@@ -47,4 +46,20 @@ export class MessageService {
     this._actualMessages = value;
   }
 
+
+  get URL(): string {
+    return this._URL;
+  }
+
+  set URL(value: string) {
+    this._URL = value;
+  }
+
+  get LinkedRoomId(): string {
+    return this._LinkedRoomId;
+  }
+
+  set LinkedRoomId(value: string) {
+    this._LinkedRoomId = value;
+  }
 }
