@@ -1,10 +1,13 @@
-<nav mat-tab-nav-bar mat-stretch-tabs class="flexnav">
+<nav mat-tab-nav-bar mat-stretch-tabs class="flexnav" *ngIf="this.isPCsize">
   <a mat-tab-link routerLink="login" [active]="this.router.url == '/auth/login'">Connexion</a>
   <a mat-tab-link routerLink="register" [active]="this.router.url == '/auth/register'">Enregistrement</a>
 </nav>
 
 <div class="container-tab-auth">
-  <router-outlet></router-outlet>
+  <router-outlet *ngIf="this.isPCsize"></router-outlet>
+  <div *ngIf="!this.isPCsize" style="text-align: center">
+    Désolé, ce site n'est pas accessible sur mobile, veuillez vous connecter sur un ordinateur.
+  </div>
 </div>
 
 <div class="IncorrectPwd" *ngIf="this.as.ErrorAuth !== ''">

@@ -66,6 +66,7 @@ export class AuthService {
     newAcc.password = this.convertToMD5(newMdp);
 
     this.http.post<any>(this.URL + 'auth/register/', newAcc).subscribe((e) => {
+      e = JSON.parse(e);
       console.log('creation de compte', e.pseudo, e.password);
       if (!this.lss.ConditionGuard.includes(e.pseudo) && !this.lss.ConditionGuard.includes(e.password)) {
         console.log('trytolog en cours..');

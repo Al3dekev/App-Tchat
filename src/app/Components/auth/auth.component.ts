@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {AuthService} from '../../Services/auth.service';
 import {Observable} from 'rxjs';
@@ -10,7 +10,11 @@ import {Observable} from 'rxjs';
 })
 export class AuthComponent implements OnInit {
 
-  constructor(public router: Router, public as: AuthService) {}
+  public isPCsize: boolean;
+
+  constructor(public router: Router, public as: AuthService) {
+    this.onResize();
+  }
 
   EditErrorInWS(): any{
     if (this.router.url.includes('login')) {
@@ -35,7 +39,15 @@ export class AuthComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  @HostListener('window:resize', ['$event'])
+  onResize(): any {
+    if (window.innerWidth < 800){
+      this.isPCsize = false;
+    } else{
+      this.isPCsize = true;
+    }
   }
+
+  ngOnInit(): void {}
 
 }
