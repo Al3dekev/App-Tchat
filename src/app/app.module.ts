@@ -29,6 +29,8 @@ import { RoomCardListComponent } from './Components/room-card-list/room-card-lis
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
 import { EcritureMessageComponent } from './Components/ecriture-message/ecriture-message.component';
+import { CreateRoomComponent } from './Components/create-room/create-room.component';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { EcritureMessageComponent } from './Components/ecriture-message/ecriture
     NoDiscussComponent,
     DisconnectComponent,
     RoomCardListComponent,
-    EcritureMessageComponent
+    EcritureMessageComponent,
+    CreateRoomComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ import { EcritureMessageComponent } from './Components/ecriture-message/ecriture
     MatIconModule,
     MatTabsModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule
   ],
   providers: [
     {

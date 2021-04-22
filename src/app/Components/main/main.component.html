@@ -1,7 +1,11 @@
 <div class="LeftColumnSide">
   <div class="CommandeCard">
-    <div>{{ this.as.usernameToken }}</div>
-    <button mat-stroked-button color="primary">Créer groupe</button>
+    <div *ngIf="!this.router.url.includes('discuss')">{{ this.as.usernameToken }}</div>
+    <button mat-stroked-button color="primary"
+            *ngIf="this.router.url.includes('discuss') && (this.AcS.id === this.RS.id)">
+      Gérer groupe
+    </button>
+    <button mat-stroked-button color="primary" (click)="this.openDialog()">Créer groupe</button>
   </div>
   <app-room-card-list></app-room-card-list>
 </div>
