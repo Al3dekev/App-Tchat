@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MessageService} from '../../Services/message.service';
+import {RoomService} from '../../Services/room.service';
+import {AccountService} from '../../Services/account.service';
+import {Message} from '../../Models/message';
 
 @Component({
   selector: 'app-ecriture-message',
@@ -10,18 +13,27 @@ import {MessageService} from '../../Services/message.service';
 export class EcritureMessageComponent implements OnInit {
 
   public MessageForm: FormGroup;
+  @ViewChild('messagerie') inputMessagerie;
 
-  constructor(private formBuilder: FormBuilder, private MS: MessageService) { }
+  constructor(private formBuilder: FormBuilder,
+              private MS: MessageService,
+              private RS: RoomService,
+              private AS: AccountService) { }
 
   FormMessage(): void{
     this.MessageForm = this.formBuilder.group({
-      message: ''
+      messageInput: ''
     });
   }
 
   SendingMessage(): void{
-    const formValue = this.MessageForm.value;
-    this.MS.SendMessage(formValue.message);
+    const bodyToSend = {
+      name: this.RS.name,
+      pseudo: this.AS.pseudo,
+      content: this.MessageForm.value.messageInput
+    };
+    this.MS.SendMessage(bodyToSend);
+    this.inputMessagerie.nativeElement.value = '';
   }
 
   ngOnInit(): void {

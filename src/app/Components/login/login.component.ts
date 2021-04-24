@@ -1,8 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
-import {AuthenticationService} from '../../Services/authentication.service';
-import {Account} from '../../Models/account';
-import {catchError} from 'rxjs/operators';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AuthService} from '../../Services/auth.service';
 

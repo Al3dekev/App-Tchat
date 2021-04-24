@@ -1,12 +1,12 @@
-<form [formGroup]="this.MessageForm" (submit)="this.SendingMessage()">
-  <mat-form-field class="EcrireMessaChamgeField">
-    <mat-label>Message...</mat-label>
-    <input matInput type="text" formControlName="message">
+<form class="FormMessage" [formGroup]="this.MessageForm" (submit)="this.SendingMessage()">
+  <mat-form-field class="EcritureMessage">
+    <mat-label>Ecrire un message</mat-label>
+    <input autocomplete="off" type="text" matInput #messagerie placeholder="message..." formControlName="messageInput" maxlength="300">
   </mat-form-field>
-  <mat-form-field>
+  <div class="BoutonMessage">
     <button mat-stroked-button color="primary" type="Submit">
       <mat-icon>send</mat-icon>
     </button>
-  </mat-form-field>
+  </div>
 </form>
 

@@ -3,6 +3,8 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Route
 import { Observable } from 'rxjs';
 import {LocalStorageService} from '../Services/local-storage.service';
 import {AuthService} from '../Services/auth.service';
+import {HttpClient} from '@angular/common/http';
+import {AccountService} from '../Services/account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,11 @@ import {AuthService} from '../Services/auth.service';
 export class AutoConnectGuard implements CanActivate {
 
 
-  constructor(private lss: LocalStorageService, private router: Router, private as: AuthService) {}
+  constructor(private lss: LocalStorageService,
+              private router: Router,
+              private as: AuthService,
+              private http: HttpClient,
+              private accS: AccountService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -22,6 +28,16 @@ export class AutoConnectGuard implements CanActivate {
       console.log('[GUARD]: Already connected due to token active', this.lss.get('token'));
       if (this.lss.ConditionGuard.includes(this.as.token)){
         this.as.token = this.lss.get('token');
+        this.http.get<any>('http://localhost:1789/accounts/' + this.as.usernameToken).subscribe((e) => {
+          if (e !== undefined){
+            e = JSON.parse(e);
+            console.log('IDDDD', e);
+            console.log('getHttpAccount => AutoConnectGuard');
+            this.accS.getHttpAccount(e.pseudo, e.password);
+          } else {
+            console.log('error');
+          }
+        });
       }
       return this.router.parseUrl('/main');
     }

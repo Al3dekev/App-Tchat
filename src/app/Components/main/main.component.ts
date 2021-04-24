@@ -7,6 +7,7 @@ import {CreateRoomComponent} from '../create-room/create-room.component';
 import {Router} from '@angular/router';
 import {RoomService} from '../../Services/room.service';
 import {AccountService} from '../../Services/account.service';
+import {ManageRoomComponent} from '../manage-room/manage-room.component';
 
 @Component({
   selector: 'app-main',
@@ -24,7 +25,7 @@ export class MainComponent implements OnInit {
               public AcS: AccountService) {}
 
 
-  openDialog(): void {
+  openCreateRoom(): void {
     const dialogRef = this.dialog.open(CreateRoomComponent, {
       width: '250px'
     });
@@ -33,6 +34,16 @@ export class MainComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+  openManageRoom(): void {
+  const dialogRef = this.dialog.open(ManageRoomComponent, {
+    width: '250px'
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+  console.log('The dialog was closed');
+});
+}
 
   ngOnInit(): void {}
 

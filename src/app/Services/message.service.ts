@@ -15,7 +15,7 @@ export class MessageService {
   private _URL: string;
   private _LinkedRoomId: string;
 
-  constructor(private http: HttpClient, private AS: AccountService) {
+  constructor(private http: HttpClient) {
     this.URL = 'http://localhost:1789/';
   }
 
@@ -28,11 +28,8 @@ export class MessageService {
     return this.actualMessages;
   }
 
-  SendMessage(MessageTexte: string): any{
-    const NewMsg = new Message();
-    NewMsg.account = this.AS.actualAccount;
-    NewMsg.content = MessageTexte;
-    this.http.post(this._URL + 'messages', NewMsg).subscribe(res => {
+  SendMessage(BodyToSend: any): any{
+    this.http.post(this._URL + 'messages/new', BodyToSend).subscribe(res => {
       console.log(res);
       this.getHttpMessages();
     });

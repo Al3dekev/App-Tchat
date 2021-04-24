@@ -24,7 +24,9 @@ export class AccountService {
   }
 
   getHttpAccount(pseudonyme: string, password: string | Int32Array): Account{
+      console.log(this.URL + 'accounts/' + pseudonyme + '&' + password.toString() + '/details');
       this.http.get<any>(this.URL + 'accounts/' + pseudonyme + '&' + password.toString() + '/details').subscribe((res) => {
+        console.log('NEO ACCOUUUUNT', res);
         this.actualAccount = JSON.parse(res);
         return JSON.parse(res);
       });

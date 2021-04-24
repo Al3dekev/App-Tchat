@@ -39,6 +39,7 @@ export class AuthService {
       console.log('TOKEN GENERATED', res);
       this.EstEnLigne = true;
       this.token = res.trim();
+      console.log('getHttpAccount => TryToLogin');
       this.accS.getHttpAccount(bodyURL.username, bodyURL.password);
       console.log(this.lss.get('token'));
       if (res.trim() !== ''){
