@@ -3,6 +3,7 @@ import {Room} from '../../Models/room';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../Services/auth.service';
 import {CdkScrollable} from '@angular/cdk/overlay';
+import {AccountService} from '../../Services/account.service';
 
 @Component({
   selector: 'app-room-card-list',
@@ -13,17 +14,8 @@ export class RoomCardListComponent implements OnInit {
   public ListofRooms: Room[];
   @ViewChild('ScrollSystemChat') public scrollTchat: CdkScrollable;
 
-  constructor(private http: HttpClient, private as: AuthService) { }
+  constructor(public AccS: AccountService) {}
 
-  getAllRooms(): void{
-    this.http.get<any>(this.as.URL + 'rooms/usr/' + this.as.usernameToken).subscribe((res) => {
-      this.ListofRooms = JSON.parse(res);
-      console.log(this.ListofRooms);
-    });
-  }
-
-  ngOnInit(): void {
-    this.getAllRooms();
-  }
+  ngOnInit(): void {}
 
 }

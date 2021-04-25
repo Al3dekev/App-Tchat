@@ -1,5 +1,7 @@
 <cdk-virtual-scroll-viewport itemSize="50" class="TchatScroll" #ScrollSystemChat>
-  <div class="example-item" *cdkVirtualFor="let msg of this.Messages | async">
-    <div class="bold">{{ msg.account.pseudo }}, {{ msg.date_envoi | date:'dd/MM/yyyy à HH\'h\'mm\'m\'ss'}}:</div> <div>{{ msg.content }}</div>
+  <div [ngClass]="{'MyselfMessage': this.AS.pseudo === msg.account.pseudo,
+                   'ThemselfMessage': this.AS.pseudo !== msg.account.pseudo}" *cdkVirtualFor="let msg of this.RoomMessages">
+    <div class="nameFont">{{ msg.account.pseudo }} | {{ msg.date_envoi | date:'dd/MM/yyyy | HH\'h\'mm' }}:</div>
+    <div class="Bubble">{{ msg.content }}</div>
   </div>
 </cdk-virtual-scroll-viewport>

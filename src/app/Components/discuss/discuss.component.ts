@@ -15,10 +15,7 @@ export class DiscussComponent implements OnInit {
   public NouvMess: string;
   @ViewChild('ChatSystem') public ChatCall;
 
-  constructor(public MS: MessageService,
-              public RS: RoomService) {
-
-  }
+  constructor() {}
 
   /*ClickToSave(){
     this.auth.SendAMessage(this.NouvMess);

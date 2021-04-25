@@ -1,6 +1,6 @@
 <cdk-virtual-scroll-viewport itemSize="60" class="TchatScroll">
   <mat-selection-list [multiple]="false">
-        <mat-list-option class="ListeRooms" *cdkVirtualFor="let grp of this.ListofRooms" routerLink="discuss/{{grp.id}}">
+        <mat-list-option class="ListeRooms" *cdkVirtualFor="let grp of this.AccS.RoomList" routerLink="discuss/{{grp.id}}">
           <div>{{grp.name}}</div>
           <!--<button mat-stroked-button color="primary">test</button>-->
         </mat-list-option>
