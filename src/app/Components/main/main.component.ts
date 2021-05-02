@@ -27,7 +27,8 @@ export class MainComponent implements OnInit {
 
   openCreateRoom(): void {
     const dialogRef = this.dialog.open(CreateRoomComponent, {
-      width: '250px'
+      width: '500px',
+      height: '300px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -37,7 +38,8 @@ export class MainComponent implements OnInit {
 
   openManageRoom(): void {
   const dialogRef = this.dialog.open(ManageRoomComponent, {
-    width: '250px'
+    width: '500px',
+    height: '300px'
   });
 
   dialogRef.afterClosed().subscribe(result => {

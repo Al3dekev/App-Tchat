@@ -68,9 +68,9 @@ export class AuthService {
 
     this.http.post<any>(this.URL + 'auth/register/', newAcc).subscribe((e) => {
       e = JSON.parse(e);
-      console.log('creation de compte', e.pseudo, e.password);
+      console.log('AuthService => createAccount() |', e.pseudo, e.password);
       if (!this.lss.ConditionGuard.includes(e.pseudo) && !this.lss.ConditionGuard.includes(e.password)) {
-        console.log('trytolog en cours..');
+        console.log('AuthService => Call this.TryToLogin()');
         this.TryToLogin(e.pseudo, e.password, true);
       }
     }, err => {

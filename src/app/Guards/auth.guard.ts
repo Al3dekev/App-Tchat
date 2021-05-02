@@ -29,16 +29,8 @@ export class AuthGuard implements CanActivate {
       console.log('[GUARD]: Route is allowed');
       if (this.lss.ConditionGuard.includes(this.as.token)){
         this.as.token = this.lss.get('token');
-        this.http.get<any>('http://localhost:1789/accounts/' + this.as.usernameToken).subscribe((e) => {
-          if (e !== undefined){
-            e = JSON.parse(e);
-            console.log('IDDDD', e);
-            console.log('getHttpAccount => AuthGuard');
-            this.accS.getHttpAccount(e.pseudo, e.password);
-          } else {
-            console.log('error');
-          }
-        });
+        console.log('CALL => AuthGuard()', this.as.usernameToken);
+        this.accS.reloadHttpAccount(this.as.usernameToken);
       }
       return true;
     }

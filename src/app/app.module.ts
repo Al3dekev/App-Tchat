@@ -30,12 +30,14 @@ import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
 import { EcritureMessageComponent } from './Components/ecriture-message/ecriture-message.component';
 import { CreateRoomComponent } from './Components/create-room/create-room.component';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { ManageRoomComponent } from './Components/manage-room/manage-room.component';
 import {AccountService} from './Services/account.service';
 import {RoomService} from './Services/room.service';
 import {MessageService} from './Services/message.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatChipsModule} from '@angular/material/chips';
+import { DeleteRoomComponent } from './Components/delete-room/delete-room.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     RoomCardListComponent,
     EcritureMessageComponent,
     CreateRoomComponent,
-    ManageRoomComponent
+    ManageRoomComponent,
+    DeleteRoomComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatListModule,
     MatDividerModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatChipsModule
   ],
   providers: [
     {

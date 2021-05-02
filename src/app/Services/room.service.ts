@@ -19,22 +19,46 @@ export class RoomService {
   private _members: Account[];
   private _messages: Message[];
   private URL: string;
+  public isOwner: boolean;
+  private _MsgHttpWarning: string;
 
   constructor(private http: HttpClient,
               private AS: AccountService,
               private MS: MessageService) {
-    this.URL = 'http://localhost:1789/';
+    this.URL = 'http://localhost:1789/rooms/';
+    this.isOwner = false;
+    this._MsgHttpWarning = '';
   }
 
 
   getHttpRoom(id: string): Room{
-    this.http.get<any>(this.URL + 'rooms/' + id).subscribe((res) => {
+    this.http.get<any>(this.URL + id).subscribe((res) => {
       this.actualRoom = JSON.parse(res);
       this.MS.LinkedRoomId = id;
       this.MS.getHttpMessages(id);
+      this.getHttpOwner(this.actualRoom.id);
       return JSON.parse(res);
     });
     return this.actualRoom;
+  }
+
+  getHttpOwner(idRoom: number): void {
+    this.http.get<any>(this.URL + idRoom + '/owner').subscribe((res) => {
+      const room: Room = JSON.parse(res);
+      if (this.AS.id === room.AccountOwner.id){
+        this.isOwner = true;
+      } else {
+        this.isOwner = false;
+      }
+      return room.AccountOwner;
+    });
+  }
+
+  deleteRoom(idRoom: number): void{
+    console.log(this.URL + idRoom.toString());
+    this.http.delete(this.URL + idRoom.toString()).subscribe(() => {
+      console.log('deleted with success');
+    });
   }
 
   createNewRoom(newRoomName: string): void{
@@ -42,10 +66,28 @@ export class RoomService {
       pseudo: this.AS.pseudo,
       name: newRoomName
     };
-    this.http.post<any>(this.URL + 'rooms/create', bodyRoomInfos).subscribe((e) => {
-        // mettre a jour la liste des rooms de l'AccountService
+    this.http.post<any>(this.URL + 'create', bodyRoomInfos).subscribe((e) => {
+      console.log('INSERTION ROOM => ', e);
+      // this.AS.reloadHttpAccount();
+      // reload deja realise regulierement
     });
-    // Appel HTTP pour creer la room - a revoir selon WS
+  }
+
+
+  get MsgHttpWarning(): string {
+    return this._MsgHttpWarning;
+  }
+
+  set MsgHttpWarning(value: string) {
+    if (value === 'owner is unknown'){
+      this._MsgHttpWarning = 'proprio inconnu';
+    } else if (value === '') {
+      this._MsgHttpWarning = '';
+    } else {
+      this._MsgHttpWarning = 'Erreur est survenue';
+    }
+
+
   }
 
   get actualRoom(): Room {

@@ -20,16 +20,44 @@ export class AccountService {
   private URL: string;
 
   constructor(private http: HttpClient) {
-    this.URL = 'http://localhost:1789/';
+    this.URL = 'http://localhost:1789/accounts/';
   }
 
   getHttpAccount(pseudonyme: string, password: string | Int32Array): Account{
-    this.http.get<any>(this.URL + 'accounts/' + pseudonyme + '&' + password.toString() + '/details').subscribe((res) => {
-        console.log('NEO ACCOUUUUNT', res);
+    console.log('MDDDP', password);
+    this.http.get<any>(this.URL + pseudonyme + '&' + password.toString() + '/details').subscribe((res) => {
+      if (res !== undefined){
         this.actualAccount = JSON.parse(res);
         return JSON.parse(res);
+      } else {
+        console.log('getHttpAccount() => ERROR undefined', res);
+      }
       });
     return this.actualAccount;
+  }
+
+  reloadHttpAccount(pseudonyme: string = this.actualAccount.pseudo): Account{
+    this.http.get<any>(this.URL + pseudonyme).subscribe((res) => {
+      if (res !== undefined){
+        this.actualAccount = JSON.parse(res);
+        return JSON.parse(res);
+      } else {
+        console.log('reloadHttpAccount() => ERROR undefined', res);
+      }
+    });
+    return this.actualAccount;
+  }
+
+  isOwnerByUnknownIdRoom(UnknownIdRoom: number): boolean {
+    let isOwner = false;
+    for (const RO of this.RoomsOwned){
+      if (RO.id === UnknownIdRoom) {
+        isOwner = true;
+        // console.log('EST EQUIVALENT => ', RO.id);
+        break;
+      }
+    }
+    return isOwner;
   }
 
   get actualAccount(): Account {

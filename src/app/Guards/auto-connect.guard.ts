@@ -28,16 +28,8 @@ export class AutoConnectGuard implements CanActivate {
       console.log('[GUARD]: Already connected due to token active', this.lss.get('token'));
       if (this.lss.ConditionGuard.includes(this.as.token)){
         this.as.token = this.lss.get('token');
-        this.http.get<any>('http://localhost:1789/accounts/' + this.as.usernameToken).subscribe((e) => {
-          if (e !== undefined){
-            e = JSON.parse(e);
-            console.log('IDDDD', e);
-            console.log('getHttpAccount => AutoConnectGuard');
-            this.accS.getHttpAccount(e.pseudo, e.password);
-          } else {
-            console.log('error');
-          }
-        });
+        console.log('CALL => AutoConnectGuard()');
+        this.accS.reloadHttpAccount(this.as.usernameToken);
       }
       return this.router.parseUrl('/main');
     }

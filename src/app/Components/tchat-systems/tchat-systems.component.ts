@@ -14,7 +14,6 @@ import {AccountService} from '../../Services/account.service';
 export class TchatSystemsComponent implements OnInit {
 
   public RoomMessages: Message[];
-  public checkIfNewMsg: boolean;
 
   constructor(private MS: MessageService, public AS: AccountService) {
     this.RoomMessages = [];
@@ -22,11 +21,10 @@ export class TchatSystemsComponent implements OnInit {
     interval(200).subscribe(() => {
       const checkMessages: Message[] = this.MS.getHttpMessages();
       if (this.RoomMessages !== undefined && checkMessages !== undefined){
-        if (this.RoomMessages.toString() !== this.MS.getHttpMessages().toString()){
+        if (this.RoomMessages.toString() !== checkMessages.toString()){
           this.RoomMessages = this.MS.actualMessages;
         }
       }
-
     }, error => {
       console.log(error);
     });

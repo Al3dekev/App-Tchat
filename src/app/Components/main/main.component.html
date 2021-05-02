@@ -1,8 +1,8 @@
 <div class="LeftColumnSide">
   <div class="CommandeCard">
-    <div *ngIf="this.AcS.id !== this.RS.id">{{ this.as.usernameToken }}</div>
+    <div *ngIf="!this.RS.isOwner">{{ this.as.usernameToken }}</div>
     <button (click)="this.openManageRoom()" mat-stroked-button color="primary"
-            *ngIf="this.router.url.includes('discuss') && (this.AcS.id === this.RS.id)">
+            *ngIf="this.router.url.includes('discuss') && this.RS.isOwner">
       Gérer groupe
     </button>
     <button mat-stroked-button color="primary" (click)="this.openCreateRoom()">Créer groupe</button>

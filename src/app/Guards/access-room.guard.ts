@@ -32,9 +32,10 @@ export class AccessRoomGuard implements CanActivate {
     /*if (this.AccS.RoomList === undefined){
       this.as.disconnectFromTchat();
     }*/
+    console.log('AccessRoomGuard() => canActivate().loop');
     for (const rooms of this.AccS.RoomList){
-      console.log(rooms.id);
       if (rooms.id.toString() === route.paramMap.get('id')){
+        console.log(rooms.id);
         this.RS.getHttpRoom(rooms.id.toString());
         return true;
       }

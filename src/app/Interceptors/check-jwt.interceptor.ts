@@ -10,11 +10,15 @@ import {AuthService} from '../Services/auth.service';
 import {catchError, tap} from 'rxjs/operators';
 import {LocalStorageService} from '../Services/local-storage.service';
 import {Router} from '@angular/router';
+import {RoomService} from '../Services/room.service';
 
 @Injectable()
 export class CheckJWTInterceptor implements HttpInterceptor {
 
-  constructor(private as: AuthService, private router: Router, private lss: LocalStorageService) {
+  constructor(private as: AuthService,
+              private router: Router,
+              private lss: LocalStorageService,
+              private RS: RoomService) {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -42,6 +46,11 @@ export class CheckJWTInterceptor implements HttpInterceptor {
           if (error instanceof HttpErrorResponse){
             console.log(error.error, error.status);
             this.as.ErrorAuth = error.error;
+            if (error.status === 503){
+              this.RS.MsgHttpWarning = error.error;
+            } else {
+              this.RS.MsgHttpWarning = '';
+            }
             if (error.status >= 400 && error.status < 500) {
               this.as.EstEnLigne = false;
               this.as.token = '';
