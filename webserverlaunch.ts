@@ -1,12 +1,27 @@
 'use strict';
 const express = require('express');
 const compression = require('compression');
+const helmet = require('helmet');
 
 const PORT = 4460;
 const AppFolder = 'dist/App-Tchat';
 
 const app = express();
 app.use(compression());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      'default-src': ['none'],
+      'connect-src': ['\'self\'', 'localhost:1789'],
+      'style-src': ['\'self\'', '\'unsafe-inline\'', '*.googleapis.com'],
+      'font-src': ['\'self\'', '*'],
+      'script-src': ['\'self\'', '\'unsafe-inline\'', '*'],
+      'object-src': ['\'self\'', '\'unsafe-inline\''],
+      'frame-src': ['\'self\''],
+      'img-src': ['\'self\''],
+    },
+  })
+);
 
 
 // ---- SERVE STATIC FILES ---- //

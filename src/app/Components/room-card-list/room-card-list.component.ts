@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Room} from '../../Models/room';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../Services/auth.service';
@@ -16,13 +16,14 @@ import {DeleteRoomComponent} from '../delete-room/delete-room.component';
   templateUrl: './room-card-list.component.html',
   styleUrls: ['./room-card-list.component.css']
 })
-export class RoomCardListComponent implements OnInit {
+export class RoomCardListComponent implements OnInit, OnDestroy {
   public ListofRooms: Room[];
   @ViewChild('ScrollSystemChat') public scrollTchat: CdkScrollable;
+  private ReloadRooms: any;
 
   constructor(public AS: AccountService, private dialog: MatDialog) {
     this.ListofRooms = [];
-    interval(200).subscribe(() => {
+    this.ReloadRooms = interval(200).subscribe(() => {
       const checkRoomStatus: Room[] = this.AS.reloadHttpAccount().RoomList;
       if (this.ListofRooms !== undefined && checkRoomStatus !== undefined){
         if (this.ListofRooms.toString() !== checkRoomStatus.toString()){
@@ -49,7 +50,11 @@ export class RoomCardListComponent implements OnInit {
 
 
 
-
+  ngOnDestroy(): void{
+    setTimeout(() => {
+      this.ReloadRooms.unsubscribe();
+    });
+  }
 
 
   ngOnInit(): void {}

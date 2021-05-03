@@ -11,17 +11,26 @@ import {MatDialog} from '@angular/material/dialog';
 export class CreateRoomComponent implements OnInit {
 
   public CreateRoom: FormGroup;
+  public msgerror: string;
 
   constructor(private formBuilder: FormBuilder,
               public RS: RoomService,
-              private dialogRef: MatDialog) { }
+              private dialogRef: MatDialog) {
+    this.msgerror = '';
+  }
 
   cancelCreation(): void{
     this.dialogRef.closeAll();
   }
 
   confirmCreation(): void{
-    this.RS.createNewRoom(this.CreateRoom.value.RoomNameInput);
+    if (this.CreateRoom.value.RoomNameInput !== ''){
+      this.msgerror = '';
+      this.RS.createNewRoom(this.CreateRoom.value.RoomNameInput);
+    } else {
+      this.msgerror = 'Veuillez saisir un nom';
+    }
+
   }
 
   formCreateRoom(): void{

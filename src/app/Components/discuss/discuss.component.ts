@@ -9,18 +9,9 @@ import {RoomService} from '../../Services/room.service';
 })
 export class DiscussComponent implements OnInit {
 
-  /*MessageForm = new FormControl('', [
-
-  ]);*/
-  public NouvMess: string;
   @ViewChild('ChatSystem') public ChatCall;
 
   constructor() {}
-
-  /*ClickToSave(){
-    this.auth.SendAMessage(this.NouvMess);
-    this.ChatCall.scrollDown();
-  }*/
 
   ngOnInit(): void {
   }

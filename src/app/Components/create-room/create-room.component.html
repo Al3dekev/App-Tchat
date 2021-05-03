@@ -7,5 +7,5 @@
     <button mat-mini-fab color="primary" (click)="this.confirmCreation()"><mat-icon>comment_bank</mat-icon></button>
     <button mat-mini-fab color="basic" (click)="this.cancelCreation()"><mat-icon>cancel</mat-icon></button>
   </div>
-  <div [hidden]="true">Message alerte.</div>
+  <div *ngIf="this.msgerror !== ''">{{ this.msgerror }}</div>
 </form>

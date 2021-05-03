@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, interval} from 'rxjs';
 import {startWith, switchMap} from 'rxjs/operators';
 import {MessageService} from '../../Services/message.service';
@@ -11,14 +11,15 @@ import {AccountService} from '../../Services/account.service';
   templateUrl: './tchat-systems.component.html',
   styleUrls: ['./tchat-systems.component.css']
 })
-export class TchatSystemsComponent implements OnInit {
+export class TchatSystemsComponent implements OnInit, OnDestroy {
 
   public RoomMessages: Message[];
+  private ReloadMessages: any;
 
   constructor(private MS: MessageService, public AS: AccountService) {
     this.RoomMessages = [];
 
-    interval(200).subscribe(() => {
+    this.ReloadMessages = interval(200).subscribe(() => {
       const checkMessages: Message[] = this.MS.getHttpMessages();
       if (this.RoomMessages !== undefined && checkMessages !== undefined){
         if (this.RoomMessages.toString() !== checkMessages.toString()){
@@ -29,14 +30,12 @@ export class TchatSystemsComponent implements OnInit {
       console.log(error);
     });
 
-    // this.MessageObserver = interval(20).pipe(startWith(0)).pipe(switchMap(() => ));
-    /*this.MessageObserver.subscribe((e) => {
-      console.log(e, this.RoomMessages);
-      if (e.toString() !== this.RoomMessages.toString()){
-       this.RoomMessages = e;
-     }
-    });*/
+  }
 
+  ngOnDestroy(): void{
+    setTimeout(() => {
+      this.ReloadMessages.unsubscribe();
+    });
   }
 
   ngOnInit(): void {}
