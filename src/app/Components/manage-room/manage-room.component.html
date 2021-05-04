@@ -9,23 +9,14 @@
         <mat-icon>search</mat-icon>
       </button>
     </form>
+    <div style="color:red;" *ngIf="this.RS.MsgHttpWarning !== ''">{{ this.RS.MsgHttpWarning }}</div>
+    <!--<div style="color:green;" *ngIf="this.RS.MsgHttpWarning === ''">{{ this.RS.MsgHttpWarning }}</div>-->
   </mat-tab>
   <mat-tab class="suppression-membre" label="Supprimer membre">
-    <mat-chip-list class="liste-membres-chips" *ngFor="let mem of this.RS.members">
-      <mat-chip>
+    <mat-chip-list class="liste-membres-chips">
+      <mat-chip *ngFor="let mem of this.RS.members" [disabled]="this.AS.id === mem.id" (removed)="this.RemoveMemberChip(mem)">
         {{ mem.pseudo }}<mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
     </mat-chip-list>
-    <!--<form class="FormAddMemberRoom" [formGroup]="this.RemoveUserInRoom" (submit)="this.searchMemberToAdd()">
-      <mat-form-field>
-        <mat-label>Membres supprimables:</mat-label>
-        <mat-chip-list *ngFor="let mem of this.RS.members" formControlName="supprmember">
-          <mat-chip *ngIf="mem.pseudo !== this.AS.pseudo" (removed)="this.RemoveMemberChip()">
-            {{ mem.pseudo }}<mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
-          <input matInput type="text" id="suppression">
-        </mat-chip-list>
-      </mat-form-field>
-    </form>-->
   </mat-tab>
 </mat-tab-group>

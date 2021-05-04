@@ -27,6 +27,7 @@ export class CreateRoomComponent implements OnInit {
     if (this.CreateRoom.value.RoomNameInput !== ''){
       this.msgerror = '';
       this.RS.createNewRoom(this.CreateRoom.value.RoomNameInput);
+      this.cancelCreation();
     } else {
       this.msgerror = 'Veuillez saisir un nom';
     }

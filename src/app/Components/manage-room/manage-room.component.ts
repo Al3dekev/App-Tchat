@@ -17,25 +17,31 @@ export class ManageRoomComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               public RS: RoomService,
-              public AS: AccountService) { }
+              public AS: AccountService) {}
 
 
 
   searchMemberToAdd(): any{
-    return true;
+    this.RS.MsgHttpWarning = '';
+    const body = {
+      accountPseudo: this.AddUserInRoom.value.rechmember,
+      roomId: this.RS.id
+    };
+    this.RS.addMemberToRoom(body);
+    // Verifie si membre existe
+    // Si existe pas, faire un message rouge juste en dessous
+    // Si existe, inserer membre et faire message vert pour dire qu'il a été ajouté
   }
 
-  RemoveMemberChip(): any{
-    console.log('chips removed');
-  }
-
-  addMembersInChips(): void{
-    this.variantsArray = this.productGroup.get('variants') as FormArray;
-    this.variantsArray.push(this.formBuilder.group({
-      type: '',
-      options: ''
-    }));
-
+  RemoveMemberChip(mem): any{
+    this.RS.MsgHttpWarning = '';
+    const body = {
+      accountPseudo: mem.pseudo,
+      roomId: this.RS.id
+    };
+    if (mem.id !== this.AS.id.toString()) {
+      this.RS.removeMemberToRoom(body);
+    }
   }
 
   formManageRoom(): void{
@@ -50,15 +56,6 @@ export class ManageRoomComponent implements OnInit {
 
   ngOnInit(): void {
     this.formManageRoom();
-    this.productGroup = this.formBuilder.group({
-      name: '',
-      variants: this.formBuilder.array([
-        this.formBuilder.group({
-          type: '',
-          options: ''
-        })
-      ]),
-    });
   }
 
 }

@@ -18,7 +18,7 @@ export class RoomService {
   private _dateCreation: string;
   private _members: Account[];
   private _messages: Message[];
-  private URL: string;
+  private readonly URL: string;
   public isOwner: boolean;
   private _MsgHttpWarning: string;
 
@@ -32,7 +32,7 @@ export class RoomService {
 
 
   getHttpRoom(id: string): Room{
-    this.http.get<any>(this.URL + id).subscribe((res) => {
+    this.http.get<any>(this.URL + id + '/details').subscribe((res) => {
       this.actualRoom = JSON.parse(res);
       this.MS.LinkedRoomId = id;
       this.MS.getHttpMessages(id);
@@ -45,11 +45,7 @@ export class RoomService {
   getHttpOwner(idRoom: number): void {
     this.http.get<any>(this.URL + idRoom + '/owner').subscribe((res) => {
       const room: Room = JSON.parse(res);
-      if (this.AS.id === room.AccountOwner.id){
-        this.isOwner = true;
-      } else {
-        this.isOwner = false;
-      }
+      this.isOwner = this.AS.id === room.AccountOwner.id;
       return room.AccountOwner;
     });
   }
@@ -73,6 +69,23 @@ export class RoomService {
     });
   }
 
+  addMemberToRoom(body: any): void {
+    this.http.post<any>(this.URL + 'addmember', body).subscribe(() => {
+      console.log('MEMBER ADDED => ', body.accountPseudo);
+      const acc: Account = new Account();
+      acc.pseudo = body.accountPseudo;
+      this.members.push(acc);
+    });
+  }
+
+  removeMemberToRoom(body: any): void {
+    this.http.post<any>(this.URL + 'removemember', body).subscribe(() => {
+      console.log('MEMBER REMOVED => ', body.accountPseudo);
+      this.members = this.members.filter( (obj) => {
+        return obj.pseudo !== body.accountPseudo;
+      });
+    });
+  }
 
   get MsgHttpWarning(): string {
     return this._MsgHttpWarning;
@@ -81,6 +94,10 @@ export class RoomService {
   set MsgHttpWarning(value: string) {
     if (value === 'owner is unknown'){
       this._MsgHttpWarning = 'proprio inconnu';
+    } else if (value === 'already in room') {
+      this._MsgHttpWarning = 'Déjà membre du groupe';
+    } else if (value === 'account not found') {
+      this._MsgHttpWarning = 'pseudonyme inconnu';
     } else if (value === '') {
       this._MsgHttpWarning = '';
     } else {
@@ -98,10 +115,10 @@ export class RoomService {
     this._actualRoom = value;
     this.id = this._actualRoom.id;
     this.name = this._actualRoom.name;
-    this.AccountOwner = this._actualRoom.AccountOwner;
+    // this.AccountOwner = this._actualRoom.AccountOwner;
     this.dateCreation = this._actualRoom.dateCreation;
     this.members = this._actualRoom.members;
-    this.messages = this._actualRoom.messages;
+    // this.messages = this._actualRoom.messages;
   }
 
   get id(): number {
