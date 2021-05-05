@@ -5,6 +5,7 @@ import {Message} from '../Models/message';
 import {HttpClient} from '@angular/common/http';
 import {MessageService} from './message.service';
 import {AccountService} from './account.service';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class RoomService {
   constructor(private http: HttpClient,
               private AS: AccountService,
               private MS: MessageService) {
-    this.URL = 'http://localhost:1789/rooms/';
+    this.URL = environment.apiurl + 'rooms/';
     this.isOwner = false;
     this._MsgHttpWarning = '';
   }

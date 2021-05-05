@@ -12,7 +12,6 @@ import { RegisterComponent } from './Components/register/register.component';
 import { DiscussComponent } from './Components/discuss/discuss.component';
 import {MatInputModule} from '@angular/material/input';
 import { TchatSystemsComponent } from './Components/tchat-systems/tchat-systems.component';
-import { BubbleComponent } from './Components/bubble/bubble.component';
 import {CommonModule} from '@angular/common';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatIconModule} from '@angular/material/icon';
@@ -20,7 +19,6 @@ import { UpperAppInfosComponent } from './Components/upper-app-infos/upper-app-i
 import {CheckJWTInterceptor} from './Interceptors/check-jwt.interceptor';
 import { AuthComponent } from './Components/auth/auth.component';
 import { MainComponent } from './Components/main/main.component';
-import { NoDiscussComponent } from './Components/no-discuss/no-discuss.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { DisconnectComponent } from './Components/disconnect/disconnect.component';
 import {AuthService} from './Services/auth.service';
@@ -46,11 +44,9 @@ import { DeleteRoomComponent } from './Components/delete-room/delete-room.compon
     RegisterComponent,
     DiscussComponent,
     TchatSystemsComponent,
-    BubbleComponent,
     UpperAppInfosComponent,
     AuthComponent,
     MainComponent,
-    NoDiscussComponent,
     DisconnectComponent,
     RoomCardListComponent,
     EcritureMessageComponent,

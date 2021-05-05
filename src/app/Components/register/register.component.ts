@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from '../../Services/authentication.service';
-import {AccountService} from '../../Services/account.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AuthService} from '../../Services/auth.service';
 
@@ -19,7 +17,8 @@ export class RegisterComponent implements OnInit {
       'e232baabf13fa4b5812c837c7cfb9026',
       '6a55919315f8b0778df71f28752ddca8',
       'de02b1f7cfa42cca4891d32bb26741d3',
-      '03dca587494c887ec2c53e6889c97470'
+      '03dca587494c887ec2c53e6889c97470',
+      '39a176545b8cb3133de7ce0cd2d537c0'
     ];
   }
 

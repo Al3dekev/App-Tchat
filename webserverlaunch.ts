@@ -11,14 +11,14 @@ app.use(compression());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      'default-src': ['none'],
-      'connect-src': ['\'self\'', 'localhost:1789'],
-      'style-src': ['\'self\'', '\'unsafe-inline\'', '*.googleapis.com'],
-      'font-src': ['\'self\'', '*'],
-      'script-src': ['\'self\'', '\'unsafe-inline\'', '*'],
-      'object-src': ['\'self\'', '\'unsafe-inline\''],
-      'frame-src': ['\'self\''],
-      'img-src': ['\'self\''],
+      defaultSrc: ['none'],
+      connectSrc: ['\'self\'', '91.170.176.159:1789', 'localhost:1789'],
+      styleSrc: ['\'self\'', '\'unsafe-inline\'', '*.googleapis.com'],
+      fontSrc: ['\'self\'', '*'],
+      scriptSrc: ['\'self\'', '\'unsafe-inline\'', '*'],
+      objectSrc: ['\'self\'', '\'unsafe-inline\''],
+      frameSrc: ['\'self\''],
+      imgSrc: ['\'self\'']
     },
   })
 );

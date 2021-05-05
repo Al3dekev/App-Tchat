@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {Md5} from 'ts-md5';
 import {LocalStorageService} from './local-storage.service';
 import {AuthService} from './auth.service';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AccountService {
   private URL: string;
 
   constructor(private http: HttpClient) {
-    this.URL = 'http://localhost:1789/accounts/';
+    this.URL = environment.apiurl + 'accounts/';
   }
 
   getHttpAccount(pseudonyme: string, password: string | Int32Array): Account{

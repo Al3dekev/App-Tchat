@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Message} from '../Models/message';
 import {RoomService} from './room.service';
 import {AccountService} from './account.service';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,12 @@ export class MessageService {
   private _LinkedRoomId: string;
 
   constructor(private http: HttpClient) {
-    this.URL = 'http://localhost:1789/';
+    this.URL = environment.apiurl + 'messages/';
   }
 
 
   getHttpMessages(id: string | number = this.LinkedRoomId): Message[]{
-    this.http.get<any>(this._URL + 'messages/' + id).subscribe((res) => {
+    this.http.get<any>(this._URL + id).subscribe((res) => {
       this.actualMessages = JSON.parse(res);
       return JSON.parse(res);
     });
@@ -29,7 +30,7 @@ export class MessageService {
   }
 
   SendMessage(BodyToSend: any): any{
-    this.http.post(this._URL + 'messages/new', BodyToSend).subscribe(res => {
+    this.http.post(this._URL + 'new', BodyToSend).subscribe(res => {
       console.log(res);
       this.getHttpMessages();
     });

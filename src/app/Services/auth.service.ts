@@ -6,7 +6,7 @@ import {LocalStorageService} from './local-storage.service';
 import {Account} from '../Models/account';
 import jwt_decode from 'jwt-decode';
 import {AccountService} from './account.service';
-import {RoomService} from './room.service';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +23,13 @@ export class AuthService {
               private router: Router,
               private lss: LocalStorageService,
               private accS: AccountService){
-    this.URL = 'http://localhost:1789/';
+    this.URL = environment.apiurl + 'auth/';
     this.ErrorAuth = '';
   }
 
 
   TryToLogin(username: string, password: string, alreadyMD5: boolean = false): any{
-    const loginURL = this.URL + 'auth/logger';
+    const loginURL = this.URL + 'logger';
     const bodyURL = {
       username,
       password: alreadyMD5 ? password : this.convertToMD5(password)
@@ -66,7 +66,7 @@ export class AuthService {
     newAcc.pseudo = newPseudo;
     newAcc.password = this.convertToMD5(newMdp);
 
-    this.http.post<any>(this.URL + 'auth/register/', newAcc).subscribe((e) => {
+    this.http.post<any>(this.URL + 'register/', newAcc).subscribe((e) => {
       e = JSON.parse(e);
       console.log('AuthService => createAccount() |', e.pseudo, e.password);
       if (!this.lss.ConditionGuard.includes(e.pseudo) && !this.lss.ConditionGuard.includes(e.password)) {
