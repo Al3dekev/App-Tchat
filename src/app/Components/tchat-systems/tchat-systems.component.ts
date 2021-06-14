@@ -1,9 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, interval} from 'rxjs';
-import {startWith, switchMap} from 'rxjs/operators';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {interval} from 'rxjs';
 import {MessageService} from '../../Services/message.service';
 import {Message} from '../../Models/message';
-import {isUndefined} from 'util';
 import {AccountService} from '../../Services/account.service';
 
 @Component({
@@ -19,7 +17,7 @@ export class TchatSystemsComponent implements OnInit, OnDestroy {
   constructor(private MS: MessageService, public AS: AccountService) {
     this.RoomMessages = [];
 
-    this.ReloadMessages = interval(200).subscribe(() => {
+    this.ReloadMessages = interval(500).subscribe(() => {
       const checkMessages: Message[] = this.MS.getHttpMessages();
       if (this.RoomMessages !== undefined && checkMessages !== undefined){
         if (this.RoomMessages.toString() !== checkMessages.toString()){
@@ -32,6 +30,7 @@ export class TchatSystemsComponent implements OnInit, OnDestroy {
 
   }
 
+  @HostListener('unload')
   ngOnDestroy(): void{
     setTimeout(() => {
       this.ReloadMessages.unsubscribe();

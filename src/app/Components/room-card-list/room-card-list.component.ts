@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Room} from '../../Models/room';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../Services/auth.service';
@@ -23,7 +23,7 @@ export class RoomCardListComponent implements OnInit, OnDestroy {
 
   constructor(public AS: AccountService, private dialog: MatDialog) {
     this.ListofRooms = [];
-    this.ReloadRooms = interval(200).subscribe(() => {
+    this.ReloadRooms = interval(500).subscribe(() => {
       const checkRoomStatus: Room[] = this.AS.reloadHttpAccount().RoomList;
       if (this.ListofRooms !== undefined && checkRoomStatus !== undefined){
         if (this.ListofRooms.toString() !== checkRoomStatus.toString()){
@@ -48,8 +48,7 @@ export class RoomCardListComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
+  @HostListener('unload')
   ngOnDestroy(): void{
     setTimeout(() => {
       this.ReloadRooms.unsubscribe();

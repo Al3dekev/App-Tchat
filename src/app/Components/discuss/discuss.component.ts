@@ -1,6 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {MessageService} from '../../Services/message.service';
-import {RoomService} from '../../Services/room.service';
+import {AuthService} from '../../Services/auth.service';
 
 @Component({
   selector: 'app-discuss',
@@ -11,7 +10,7 @@ export class DiscussComponent implements OnInit {
 
   @ViewChild('ChatSystem') public ChatCall;
 
-  constructor() {}
+  constructor(public as: AuthService) {}
 
   ngOnInit(): void {
   }

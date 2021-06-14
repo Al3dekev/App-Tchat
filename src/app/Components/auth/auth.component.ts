@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent{
 
   public isPCsize: boolean;
 
@@ -41,13 +41,7 @@ export class AuthComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(): any {
-    if (window.innerWidth < 800){
-      this.isPCsize = false;
-    } else{
-      this.isPCsize = true;
-    }
+    this.isPCsize = window.innerWidth >= 800;
   }
-
-  ngOnInit(): void {}
 
 }

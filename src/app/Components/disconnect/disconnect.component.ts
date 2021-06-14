@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../Services/auth.service';
 
 @Component({
@@ -6,11 +6,12 @@ import {AuthService} from '../../Services/auth.service';
   templateUrl: './disconnect.component.html',
   styleUrls: ['./disconnect.component.css']
 })
-export class DisconnectComponent implements OnInit {
+export class DisconnectComponent {
 
   constructor(public as: AuthService) { }
 
-  ngOnInit(): void {
+  async disconnectAccount(): Promise<any> {
+    await this.as.disconnectFromTchat();
   }
 
 }

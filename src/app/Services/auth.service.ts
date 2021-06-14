@@ -7,6 +7,8 @@ import {Account} from '../Models/account';
 import jwt_decode from 'jwt-decode';
 import {AccountService} from './account.service';
 import {environment} from '../../environments/environment';
+import {interval} from 'rxjs';
+import {Message} from '../Models/message';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,7 @@ export class AuthService {
   private _EstEnLigne: boolean;
   private _ErrorAuth: string;
   private _decodedToken: any;
+  public checkIfOnline: any;
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -25,8 +28,16 @@ export class AuthService {
               private accS: AccountService){
     this.URL = environment.apiurl + 'auth/';
     this.ErrorAuth = '';
-  }
+    this.checkIfOnline = interval(500).subscribe(() => {
+      if (!this.EstEnLigne){
+        this.token = '';
+      }
+    }, error => {
+      console.log(error);
+    });
 
+
+  }
 
   TryToLogin(username: string, password: string, alreadyMD5: boolean = false): any{
     const loginURL = this.URL + 'logger';
@@ -78,16 +89,17 @@ export class AuthService {
     });
   }
 
-  disconnectFromTchat(): void{
-    this.clearTheToken();
-    this.router.navigateByUrl('auth/login').then( (e) => {
-      console.log(e);
-    });
+  async disconnectFromTchat(): Promise<void>{
+      await this.clearTheToken();
+      this.router.navigateByUrl('auth/login').then( async (e) => {
+        console.log(e);
+        await this.clearTheToken();
+      });
   }
 
-  clearTheToken(): void {
-    this.token = '';
+  async clearTheToken(): Promise<void> {
     this.EstEnLigne = false;
+    this.token = '';
   }
 
   get userIdToken(): any{

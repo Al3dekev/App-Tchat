@@ -7,7 +7,7 @@
     </button>
     <button mat-stroked-button color="primary" (click)="this.openCreateRoom()">Créer groupe</button>
   </div>
-  <app-room-card-list></app-room-card-list>
+  <app-room-card-list *ngIf="this.as.EstEnLigne"></app-room-card-list>
 </div>
 <div class="DividerSide">
   <mat-divider [vertical]="true"></mat-divider>
