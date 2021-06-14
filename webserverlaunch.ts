@@ -3,6 +3,9 @@ const express = require('express');
 const compression = require('compression');
 const helmet = require('helmet');
 
+const https = require('https');
+const fs = require('fs');
+
 const PORT = 4460;
 const AppFolder = 'dist/App-Tchat';
 
@@ -11,14 +14,14 @@ app.use(compression());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: ['none'],
-      connectSrc: ['\'self\'', '91.170.176.159:1789', 'localhost:1789'],
-      styleSrc: ['\'self\'', '\'unsafe-inline\'', '*.googleapis.com'],
-      fontSrc: ['\'self\'', '*'],
-      scriptSrc: ['\'self\'', '\'unsafe-inline\'', '*'],
-      objectSrc: ['\'self\'', '\'unsafe-inline\''],
-      frameSrc: ['\'self\''],
-      imgSrc: ['\'self\'']
+      defaultSrc: ["*"],
+      connectSrc: ["'self'", "https://91.170.176.159:1789/*"],
+      styleSrc: ["'self'", "'unsafe-inline'", "*.googleapis.com"],
+      fontSrc: ["'self'", "*"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "*"],
+      objectSrc: ["'self'", "'unsafe-inline'"],
+      frameSrc: ["'self'"],
+      imgSrc: ["'self'"]
     },
   })
 );
@@ -33,6 +36,11 @@ app.all('*', (req, res) => {
 });
 
 // ---- START UP THE NODE SERVER  ----
-app.listen(PORT, () => {
+https.createServer({
+    key: fs.readFileSync('./ssl/key.pem'),
+    cert: fs.readFileSync('./ssl/certificate.pem'),
+    passphrase: 'mMMCACy5ZcuwqWnK'
+}, app)
+.listen(PORT, () => {
   console.log('Node Express server for ' + app.name + ' listening on http://localhost:' + PORT);
 });
