@@ -5,9 +5,10 @@
     "ng": "ng",
     "start": "ng serve --port 4460",
     "buildstartprod": "ng build --prod && ts-node --transpile-only webserverlaunch.ts",
-    "startprod": "ts-node --transpile-only webserverlaunch.ts",
-    "build": "ng build",
     "buildprod": "ng build --prod",
+    "startprod": "ts-node --transpile-only webserverlaunch.ts",
+    "buildstarttest": "ng build && ts-node --transpile-only webserverlaunch.ts",
+    "buildtest": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

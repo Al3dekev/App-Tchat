@@ -30,9 +30,11 @@ export class EcritureMessageComponent implements OnInit {
     const bodyToSend = {
       name: this.RS.name,
       pseudo: this.AS.pseudo,
-      content: this.MessageForm.value.messageInput
+      content: this.MessageForm.value.messageInput.trim()
     };
-    this.MS.SendMessage(bodyToSend);
+    if (bodyToSend.content !== '') {
+      this.MS.SendMessage(bodyToSend);
+    }
     this.inputMessagerie.nativeElement.value = '';
   }
 

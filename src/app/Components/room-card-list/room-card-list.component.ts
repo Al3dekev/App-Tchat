@@ -21,7 +21,7 @@ export class RoomCardListComponent implements OnInit, OnDestroy {
   @ViewChild('ScrollSystemChat') public scrollTchat: CdkScrollable;
   private ReloadRooms: any;
 
-  constructor(public AS: AccountService, private dialog: MatDialog) {
+  constructor(public AS: AccountService, private dialog: MatDialog, private RS: RoomService) {
     this.ListofRooms = [];
     this.ReloadRooms = interval(500).subscribe(() => {
       const checkRoomStatus: Room[] = this.AS.reloadHttpAccount().RoomList;
@@ -48,7 +48,15 @@ export class RoomCardListComponent implements OnInit, OnDestroy {
     });
   }
 
-  @HostListener('unload')
+  leaveroom(): void {
+    this.RS.MsgHttpWarning = '';
+    const body = {
+      accountPseudo: this.AS.pseudo,
+      roomId: this.RS.id
+    };
+    this.RS.removeMemberToRoom(body);
+  }
+
   ngOnDestroy(): void{
     setTimeout(() => {
       this.ReloadRooms.unsubscribe();

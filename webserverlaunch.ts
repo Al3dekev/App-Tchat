@@ -14,8 +14,8 @@ app.use(compression());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: ["*"],
-      connectSrc: ["'self'", "https://91.170.176.159:1789/*"],
+	  defaultSrc: ["*"],
+      connectSrc: ["'self'", "https://91.170.176.159:1789", "https://localhost:1789"],
       styleSrc: ["'self'", "'unsafe-inline'", "*.googleapis.com"],
       fontSrc: ["'self'", "*"],
       scriptSrc: ["'self'", "'unsafe-inline'", "*"],
@@ -25,6 +25,13 @@ app.use(
     },
   })
 );
+
+/*app.use(express.csrf())
+app.use(function (req, res, next) {
+  res.cookie('XSRF-TOKEN', req.session._csrf);
+  res.locals.csrftoken = req.session._csrf;
+  next();
+})*/
 
 
 // ---- SERVE STATIC FILES ---- //
@@ -42,5 +49,5 @@ https.createServer({
     passphrase: 'mMMCACy5ZcuwqWnK'
 }, app)
 .listen(PORT, () => {
-  console.log('Node Express server for ' + app.name + ' listening on http://localhost:' + PORT);
+  console.log('Node Express server for ' + app.name + ' listening on https://localhost:' + PORT);
 });

@@ -5,6 +5,9 @@
           <button *ngIf="this.AS.isOwnerByUnknownIdRoom(grp.id)" (click)="this.createDeleteDialog()" mat-mini-fab color="warn">
             <mat-icon>delete</mat-icon>
           </button>
+          <button *ngIf="!this.AS.isOwnerByUnknownIdRoom(grp.id)" (click)="this.leaveroom()" mat-mini-fab color="warn">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
         </mat-list-option>
   </mat-selection-list>
 </cdk-virtual-scroll-viewport>
